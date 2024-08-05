@@ -1,6 +1,12 @@
-# Android Jetpack
+# Compose LWJGL
 
-[![Revved up by Gradle Enterprise](https://img.shields.io/badge/Revved%20up%20by-Gradle%20Enterprise-06A0CE?logo=Gradle&labelColor=02303A)](https://ge.androidx.dev)
+Compose LWJGL is a fork of JetBrains' Compose Multiplatform made to work with LWJGL.
+
+# Major Changes
+- Refactored Key Events a little to passing them easier.
+- Fixed the race condition between `ComposeScene` and `GlobalSnapshotManager` (https://github.com/JetBrains/compose-multiplatform/issues/4788#issuecomment-2110065887)
+
+# What is Jetpack?
 
 Jetpack is a suite of libraries, tools, and guidance to help developers write high-quality apps easier. These components help you follow best practices, free you from writing boilerplate code, and simplify complex tasks, so you can focus on the code you care about.
 
