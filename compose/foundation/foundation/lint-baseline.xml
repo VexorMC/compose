@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.4.0-alpha12" type="baseline" client="gradle" dependencies="false" name="AGP (8.4.0-alpha12)" variant="all" version="8.4.0-alpha12">
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method genericClickableWithoutGesture has parameter currentKeyPressInteractions with type Map&lt;Key, Press>: replace with LongObjectMap"
+        errorLine1="    currentKeyPressInteractions: MutableMap&lt;Key, PressInteraction.Press>,"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/Clickable.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field currentKeyPressInteractions with type Map&lt;Key, Press>: replace with LongObjectMap"
+        errorLine1="    private val currentKeyPressInteractions = mutableMapOf&lt;Key, PressInteraction.Press>()"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/Clickable.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable pinnedItems with type List&lt;? extends Integer>: replace with IntList"
+        errorLine1="        val pinnedItems = itemProvider.calculateLazyLayoutPinnedIndices("
+        errorLine2="        ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGrid.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;Integer> of calculateCrossAxisCellSizes: replace with IntList"
+        errorLine1="    fun Density.calculateCrossAxisCellSizes(availableSize: Int, spacing: Int): List&lt;Int>"
+        errorLine2="                                                                               ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridDsl.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;Integer> of calculateCellsCrossAxisSizeImpl: replace with IntList"
+        errorLine1="): List&lt;Int> {"
+        errorLine2="   ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridDsl.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method measureLazyGrid has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedItems: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method calculateExtraItems has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedItems: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="constructor LazyGridMeasuredLine has parameter spans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="    private val spans: List&lt;GridItemSpan>,"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridMeasuredLine.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field spans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="    private val spans: List&lt;GridItemSpan>,"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridMeasuredLine.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method createLine has parameter spans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="        spans: List&lt;GridItemSpan>,"
+        errorLine2="               ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridMeasuredLineProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="constructor LineConfiguration has parameter spans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="    class LineConfiguration(val firstItemIndex: Int, val spans: List&lt;GridItemSpan>)"
+        errorLine2="                                                                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field spans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="    class LineConfiguration(val firstItemIndex: Int, val spans: List&lt;GridItemSpan>)"
+        errorLine2="                                                                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;GridItemSpan> of getSpans: replace with LongList"
+        errorLine1="    class LineConfiguration(val firstItemIndex: Int, val spans: List&lt;GridItemSpan>)"
+        errorLine2="                                                                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field cachedBucket with type List&lt;Integer>: replace with IntList"
+        errorLine1="    /**"
+        errorLine2="    ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field previousDefaultSpans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="    /**"
+        errorLine2="    ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;GridItemSpan> of getDefaultSpans: replace with LongList"
+        errorLine1="    private fun getDefaultSpans(currentSlotsPerLine: Int) ="
+        errorLine2="                ~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable spans with type List&lt;GridItemSpan>: replace with LongList"
+        errorLine1="        val spans = mutableListOf&lt;GridItemSpan>()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/grid/LazyGridSpanLayoutProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field countPerType with type Map&lt;Object, Integer>: replace with ObjectIntMap"
+        errorLine1="    private val countPerType = mutableMapOf&lt;Any?, Int>()"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/layout/LazyLayout.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;Integer> of calculateLazyLayoutPinnedIndices: replace with IntList"
+        errorLine1="): List&lt;Int> {"
+        errorLine2="   ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/layout/LazyLayoutBeyondBoundsState.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="        val pinnedItems = mutableListOf&lt;Int>()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/layout/LazyLayoutBeyondBoundsState.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field placeablesCache with type HashMap&lt;Integer, List&lt;Placeable>>: replace with IntObjectMap"
+        errorLine1="    /**"
+        errorLine2="    ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/layout/LazyLayoutMeasureScope.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable pinnedItems with type List&lt;? extends Integer>: replace with IntList"
+        errorLine1="        val pinnedItems = itemProvider.calculateLazyLayoutPinnedIndices("
+        errorLine2="        ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyList.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method findOrComposeLazyListHeader has parameter headerIndexes with type List&lt;Integer>: replace with IntList"
+        errorLine1="    headerIndexes: List&lt;Int>,"
+        errorLine2="                   ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListHeaders.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field _headerIndexes with type List&lt;Integer>: replace with IntList"
+        errorLine1="    private var _headerIndexes: MutableList&lt;Int>? = null"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListIntervalContent.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;Integer> of getHeaderIndexes: replace with IntList"
+        errorLine1="    val headerIndexes: List&lt;Int> get() = _headerIndexes ?: emptyList()"
+        errorLine2="        ~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListIntervalContent.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable varb332e573 with type List&lt;Integer>: replace with IntList"
+        errorLine1="    val headerIndexes: List&lt;Int> get() = _headerIndexes ?: emptyList()"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListIntervalContent.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable headersIndexes with type List&lt;Integer>: replace with IntList"
+        errorLine1="        val headersIndexes = _headerIndexes ?: mutableListOf&lt;Int>().also {"
+        errorLine2="        ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListIntervalContent.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable varb3338ae4 with type List&lt;Integer>: replace with IntList"
+        errorLine1="        val headersIndexes = _headerIndexes ?: mutableListOf&lt;Int>().also {"
+        errorLine2="                             ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListIntervalContent.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;Integer> of getHeaderIndexes: replace with IntList"
+        errorLine1="    val headerIndexes: List&lt;Int>"
+        errorLine2="                       ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListItemProvider.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method measureLazyList has parameter headerIndexes with type List&lt;Integer>: replace with IntList"
+        errorLine1="    headerIndexes: List&lt;Int>,"
+        errorLine2="                   ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method measureLazyList has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedItems: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method createItemsAfterList has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedItems: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method createItemsBeforeList has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedItems: List&lt;Int>"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/LazyListMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method measureStaggeredGrid has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedItems: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="constructor LazyStaggeredGridMeasureContext has parameter pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    val pinnedItems: List&lt;Int>,"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field pinnedItems with type List&lt;Integer>: replace with IntList"
+        errorLine1="    val pinnedItems: List&lt;Int>,"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="return type List&lt;Integer> of getPinnedItems: replace with IntList"
+        errorLine1="    val pinnedItems: List&lt;Int>,"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable pinnedItems with type List&lt;? extends Integer>: replace with IntList"
+        errorLine1="        val pinnedItems = itemProvider.calculateLazyLayoutPinnedIndices("
+        errorLine2="        ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridMeasurePolicy.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="field currentItemPrefetchHandles with type Map&lt;Integer, PrefetchHandle>: replace with IntObjectMap"
+        errorLine1="    private val currentItemPrefetchHandles = mutableMapOf&lt;Int, PrefetchHandle>()"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridState.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable prefetchHandlesUsed with type Set&lt;Integer>: replace with IntSet"
+        errorLine1="            val prefetchHandlesUsed = mutableSetOf&lt;Int>()"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridState.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method clearLeftoverPrefetchHandles has parameter prefetchHandlesUsed with type Set&lt;Integer>: replace with IntSet"
+        errorLine1="    private fun clearLeftoverPrefetchHandles(prefetchHandlesUsed: Set&lt;Int>) {"
+        errorLine2="                                                                  ~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/lazy/staggeredgrid/LazyStaggeredGridState.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method measurePager has parameter pinnedPages with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedPages: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/pager/PagerMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method createPagesAfterList has parameter pinnedPages with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedPages: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/pager/PagerMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="method createPagesBeforeList has parameter pinnedPages with type List&lt;Integer>: replace with IntList"
+        errorLine1="    pinnedPages: List&lt;Int>,"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/pager/PagerMeasure.kt"/>
+    </issue>
+
+    <issue
+        id="PrimitiveInCollection"
+        message="variable pinnedPages with type List&lt;? extends Integer>: replace with IntList"
+        errorLine1="        val pinnedPages = itemProvider.calculateLazyLayoutPinnedIndices("
+        errorLine2="        ^">
+        <location
+            file="src/commonMain/kotlin/androidx/compose/foundation/pager/PagerMeasurePolicy.kt"/>
+    </issue>
+
+</issues>

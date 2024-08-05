@@ -1,0 +1,48 @@
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import androidx.build.AndroidXRootPlugin
+import androidx.build.SdkHelperKt
+
+buildscript {
+    SdkHelperKt.setSupportRootFolder(project, project.projectDir)
+    SdkHelperKt.writeSdkPathToLocalPropertiesFile(project)
+
+    // Needed for atomicfu plugin
+    apply(from: "buildSrc/repos.gradle")
+    repos.addMavenRepositories(repositories)
+    dependencies {
+        classpath(libs.atomicFuPluginz)
+        // This should be removed once https://github.com/Kotlin/kotlinx-atomicfu/issues/399 is fixed
+        classpath("org.jetbrains.kotlin:atomicfu:${libs.versions.kotlin.get()}")
+    }
+}
+
+apply from: "buildSrc/dependencies.gradle"
+
+apply plugin: AndroidXRootPlugin
+
+// workaround for https://github.com/gradle/gradle/issues/24822
+if (project.hasProperty("androidx.update.signatures")) {
+    apply plugin: "java-library"
+    apply from: "buildSrc/shared-dependencies.gradle"
+}
+
+allprojects {
+    this.tasks.configureEach {
+        if (it.name == "kotlinStoreYarnLock") it.enabled = false
+    }
+}

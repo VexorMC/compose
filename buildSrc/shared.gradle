@@ -1,0 +1,32 @@
+// This file applies configuration common to projects in buildSrc
+apply plugin: "kotlin"
+apply plugin: "java-gradle-plugin"
+
+buildscript {
+    project.ext.supportRootFolder = project.projectDir.getParentFile().getParentFile()
+    apply from: "../repos.gradle"
+    repos.addMavenRepositories(repositories)
+    dependencies {
+        classpath(libs.kotlinGradlePluginz)
+    }
+}
+
+dependencies {
+    implementation(project(":jetpad-integration"))
+}
+
+apply from: "../shared-dependencies.gradle"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+project.tasks.withType(Jar) { task ->
+    task.reproducibleFileOrder = true
+    task.preserveFileTimestamps = false
+}
+
+validatePlugins {
+    enableStricterValidation = true
+}
