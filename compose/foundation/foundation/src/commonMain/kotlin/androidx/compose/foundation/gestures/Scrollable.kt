@@ -40,7 +40,7 @@ import androidx.compose.ui.focus.FocusPropertiesModifierNode
 import androidx.compose.ui.focus.FocusTargetModifierNode
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.KeyInputModifierNode
 import androidx.compose.ui.input.key.isCtrlPressed
@@ -452,7 +452,7 @@ private class ScrollableNode(
     }
 
     // Key handler for Page up/down scrolling behavior.
-    override fun onKeyEvent(event: KeyEvent): Boolean {
+    override fun onKeyEvent(event: InternalKeyEvent): Boolean {
         return if (enabled &&
             (event.key == Key.PageDown || event.key == Key.PageUp) &&
             (event.type == KeyEventType.KeyDown) &&
@@ -501,7 +501,7 @@ private class ScrollableNode(
         }
     }
 
-    override fun onPreKeyEvent(event: KeyEvent) = false
+    override fun onPreKeyEvent(event: InternalKeyEvent) = false
 
     override fun SemanticsPropertyReceiver.applySemantics() {
         if (enabled && (scrollByAction == null || scrollByOffsetAction == null)) {

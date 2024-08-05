@@ -29,7 +29,7 @@ import androidx.compose.ui.focus.FocusDirection.Companion.Previous
 import androidx.compose.ui.focus.FocusRequester.Companion.Cancel
 import androidx.compose.ui.focus.FocusRequester.Companion.Default
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyDown
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyUp
 import androidx.compose.ui.input.key.key
@@ -255,12 +255,12 @@ internal class FocusOwnerImpl(
     /**
      * Dispatches a key event through the compose hierarchy.
      */
-    override fun dispatchKeyEvent(keyEvent: KeyEvent, onFocusedItem: () -> Boolean): Boolean {
+    override fun dispatchKeyEvent(internalKeyEvent: InternalKeyEvent, onFocusedItem: () -> Boolean): Boolean {
         check(!focusInvalidationManager.hasPendingInvalidation()) {
             "Dispatching key event while focus system is invalidated."
         }
 
-        if (!validateKeyEvent(keyEvent)) return false
+        if (!validateKeyEvent(internalKeyEvent)) return false
 
         val activeFocusTarget = rootFocusNode.findActiveFocusNode()
         val focusedKeyInputNode = activeFocusTarget?.lastLocalKeyInputNode()
@@ -268,15 +268,15 @@ internal class FocusOwnerImpl(
 
         focusedKeyInputNode?.traverseAncestorsIncludingSelf(
             type = Nodes.KeyInput,
-            onPreVisit = { if (it.onPreKeyEvent(keyEvent)) return true },
+            onPreVisit = { if (it.onPreKeyEvent(internalKeyEvent)) return true },
             onVisit = { if (onFocusedItem.invoke()) return true },
-            onPostVisit = { if (it.onKeyEvent(keyEvent)) return true }
+            onPostVisit = { if (it.onKeyEvent(internalKeyEvent)) return true }
         )
         return false
     }
 
     @OptIn(ExperimentalComposeUiApi::class)
-    override fun dispatchInterceptedSoftKeyboardEvent(keyEvent: KeyEvent): Boolean {
+    override fun dispatchInterceptedSoftKeyboardEvent(internalKeyEvent: InternalKeyEvent): Boolean {
         check(!focusInvalidationManager.hasPendingInvalidation()) {
             "Dispatching intercepted soft keyboard event while focus system is invalidated."
         }
@@ -286,9 +286,9 @@ internal class FocusOwnerImpl(
 
         focusedSoftKeyboardInterceptionNode?.traverseAncestorsIncludingSelf(
             type = Nodes.SoftKeyboardKeyInput,
-            onPreVisit = { if (it.onPreInterceptKeyBeforeSoftKeyboard(keyEvent)) return true },
+            onPreVisit = { if (it.onPreInterceptKeyBeforeSoftKeyboard(internalKeyEvent)) return true },
             onVisit = { /* TODO(b/320510084): dispatch soft keyboard events to embedded views. */ },
-            onPostVisit = { if (it.onInterceptKeyBeforeSoftKeyboard(keyEvent)) return true }
+            onPostVisit = { if (it.onInterceptKeyBeforeSoftKeyboard(internalKeyEvent)) return true }
         )
         return false
     }
@@ -382,9 +382,9 @@ internal class FocusOwnerImpl(
     }
 
     // TODO(b/307580000) Factor this out into a class to manage key inputs.
-    private fun validateKeyEvent(keyEvent: KeyEvent): Boolean {
-        val keyCode = keyEvent.key.keyCode
-        when (keyEvent.type) {
+    private fun validateKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean {
+        val keyCode = internalKeyEvent.key.keyCode
+        when (internalKeyEvent.type) {
             KeyDown -> {
                 // It's probably rare for more than 3 hardware keys to be pressed simultaneously.
                 val keysCurrentlyDown = keysCurrentlyDown ?: MutableLongSet(initialCapacity = 3)

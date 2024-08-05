@@ -16,13 +16,13 @@
 
 package androidx.compose.material
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
-internal expect val KeyEvent.isDirectionUp: Boolean
-internal expect val KeyEvent.isDirectionDown: Boolean
-internal expect val KeyEvent.isDirectionRight: Boolean
-internal expect val KeyEvent.isDirectionLeft: Boolean
-internal expect val KeyEvent.isHome: Boolean
-internal expect val KeyEvent.isMoveEnd: Boolean
-internal expect val KeyEvent.isPgUp: Boolean
-internal expect val KeyEvent.isPgDn: Boolean
+internal expect val InternalKeyEvent.isDirectionUp: Boolean
+internal expect val InternalKeyEvent.isDirectionDown: Boolean
+internal expect val InternalKeyEvent.isDirectionRight: Boolean
+internal expect val InternalKeyEvent.isDirectionLeft: Boolean
+internal expect val InternalKeyEvent.isHome: Boolean
+internal expect val InternalKeyEvent.isMoveEnd: Boolean
+internal expect val InternalKeyEvent.isPgUp: Boolean
+internal expect val InternalKeyEvent.isPgDn: Boolean

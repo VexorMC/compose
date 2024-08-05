@@ -16,7 +16,7 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.NativeKeyEvent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
@@ -26,10 +26,10 @@ import org.junit.runner.RunWith
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
-class KeyEventHelpersTest {
+class InternalKeyEventHelpersTest {
     @Test
     fun whenBackAndUp_cancels() {
-        val event = KeyEvent(
+        val event = InternalKeyEvent(
             NativeKeyEvent(
                 NativeKeyEvent.ACTION_UP,
                 NativeKeyEvent.KEYCODE_BACK
@@ -40,7 +40,7 @@ class KeyEventHelpersTest {
 
     @Test
     fun whenBackAndDown_ignores() {
-        val event = KeyEvent(
+        val event = InternalKeyEvent(
             NativeKeyEvent(
                 NativeKeyEvent.ACTION_DOWN,
                 NativeKeyEvent.KEYCODE_BACK
@@ -51,7 +51,7 @@ class KeyEventHelpersTest {
 
     @Test
     fun whenNotBack_ignores() {
-        val event = KeyEvent(
+        val event = InternalKeyEvent(
             NativeKeyEvent(
                 NativeKeyEvent.ACTION_DOWN,
                 NativeKeyEvent.KEYCODE_HOME

@@ -48,7 +48,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.isAltPressed
 import androidx.compose.ui.input.key.isCtrlPressed
@@ -70,7 +70,7 @@ private val modifierKeys = setOf(
     NativeKeyEvent.KEYCODE_META_RIGHT,
 )
 
-private val KeyEvent.keyCode get() = nativeKeyEvent.keyCode
+private val InternalKeyEvent.keyCode get() = nativeKeyEvent.keyCode
 
 private val demoInstructionText =
     """Navigate the below text fields using the (shift)-tab keys on a physical keyboard.
@@ -92,8 +92,8 @@ private val keyIndicatorInstructionText =
 fun TextFieldFocusDemo() {
     val keys = remember { mutableStateListOf<KeyState>() }
 
-    val onKeyDown: (KeyEvent) -> Unit = { event ->
-        if (keys.none { it.keyEvent.keyCode == event.keyCode && !it.isUp }) {
+    val onKeyDown: (InternalKeyEvent) -> Unit = { event ->
+        if (keys.none { it.internalKeyEvent.keyCode == event.keyCode && !it.isUp }) {
             keys.add(0, KeyState(event))
             if (keys.size > 10) {
                 keys.removeLast()
@@ -101,9 +101,9 @@ fun TextFieldFocusDemo() {
         }
     }
 
-    val onKeyUp: (KeyEvent) -> Unit = { event ->
+    val onKeyUp: (InternalKeyEvent) -> Unit = { event ->
         keys
-            .indexOfFirst { it.keyEvent.keyCode == event.keyCode }
+            .indexOfFirst { it.internalKeyEvent.keyCode == event.keyCode }
             .takeUnless { it == -1 }
             ?.let { keys[it] = keys[it].copy(isUp = true) }
     }
@@ -188,7 +188,7 @@ private fun DemoTextField(
 }
 
 private data class KeyState(
-    val keyEvent: KeyEvent,
+    val internalKeyEvent: InternalKeyEvent,
     val downTime: Long = System.nanoTime(),
     val isUp: Boolean = false
 )
@@ -208,7 +208,7 @@ private fun KeyPressList(keys: List<KeyState>) {
                     enter = fadeIn(tween(durationMillis = 100)),
                     exit = fadeOut(tween(durationMillis = 1_000)),
                 ) {
-                    val event = keyState.keyEvent
+                    val event = keyState.internalKeyEvent
                     val ctrl = if (event.isCtrlPressed) "CTRL + " else ""
                     val alt = if (event.isAltPressed) "ALT + " else ""
                     val shift = if (event.isShiftPressed) "SHIFT + " else ""

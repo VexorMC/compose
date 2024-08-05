@@ -16,7 +16,7 @@
 
 package androidx.compose.ui.uikit
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.internal
 import androidx.compose.ui.input.pointer.PointerEvent
 import platform.UIKit.UIEvent
@@ -43,5 +43,5 @@ val PointerEvent.uikitEventOrNull: UIEvent?
  *
  * Always check for null, when you want to handle the native event
  */
-val KeyEvent.uikitEventOrNull: UIPress?
+val InternalKeyEvent.uikitEventOrNull: UIPress?
     get() = internal.nativeEvent as? UIPress?

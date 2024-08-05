@@ -17,14 +17,14 @@
 package androidx.compose.foundation.text
 
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.isAltPressed
 import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
 
 internal interface KeyMapping {
-    fun map(event: KeyEvent): KeyCommand?
+    fun map(event: InternalKeyEvent): KeyCommand?
 }
 
 // each platform can define its own key mapping, on Android its just defaultKeyMapping, but on
@@ -64,10 +64,10 @@ internal expect object MappedKeys {
 
 // It's common for all platforms key mapping
 internal fun commonKeyMapping(
-    shortcutModifier: (KeyEvent) -> Boolean
+    shortcutModifier: (InternalKeyEvent) -> Boolean
 ): KeyMapping {
     return object : KeyMapping {
-        override fun map(event: KeyEvent): KeyCommand? {
+        override fun map(event: InternalKeyEvent): KeyCommand? {
             return when {
                 shortcutModifier(event) && event.isShiftPressed ->
                     when (event.key) {
@@ -124,9 +124,9 @@ internal fun commonKeyMapping(
 
 // It's "default" or actually "non macOS" key mapping
 internal val defaultKeyMapping: KeyMapping =
-    commonKeyMapping(KeyEvent::isCtrlPressed).let { common ->
+    commonKeyMapping(InternalKeyEvent::isCtrlPressed).let { common ->
         object : KeyMapping {
-            override fun map(event: KeyEvent): KeyCommand? {
+            override fun map(event: InternalKeyEvent): KeyCommand? {
                 return when {
                     event.isShiftPressed && event.isCtrlPressed ->
                         when (event.key) {

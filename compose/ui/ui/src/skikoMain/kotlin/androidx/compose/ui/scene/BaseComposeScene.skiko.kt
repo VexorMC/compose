@@ -26,11 +26,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.Snapshot
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.InternalComposeUiApi
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Canvas
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerButtons
 import androidx.compose.ui.input.pointer.PointerEventType
@@ -39,13 +38,11 @@ import androidx.compose.ui.input.pointer.PointerKeyboardModifiers
 import androidx.compose.ui.input.pointer.PointerType
 import androidx.compose.ui.node.SnapshotInvalidationTracker
 import androidx.compose.ui.platform.GlobalSnapshotManager
-import androidx.compose.ui.platform.GlobalSnapshotManagerDispatcher
 import androidx.compose.ui.platform.PlatformContext
 import androidx.compose.ui.util.trace
 import dev.lunasa.lwjgl.ComposeLWJGL
 import kotlin.coroutines.CoroutineContext
 import kotlin.concurrent.Volatile
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * BaseComposeScene is an internal abstract class that implements the ComposeScene interface.
@@ -237,8 +234,8 @@ internal abstract class BaseComposeScene(
         )
     }
 
-    override fun sendKeyEvent(keyEvent: KeyEvent): Boolean = postponeInvalidation("BaseComposeScene:sendKeyEvent") {
-        inputHandler.onKeyEvent(keyEvent)
+    override fun sendKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean = postponeInvalidation("BaseComposeScene:sendKeyEvent") {
+        inputHandler.onKeyEvent(internalKeyEvent)
     }
 
     private fun doMeasureAndLayout() {
@@ -250,7 +247,7 @@ internal abstract class BaseComposeScene(
 
     protected abstract fun processPointerInputEvent(event: PointerInputEvent)
 
-    protected abstract fun processKeyEvent(keyEvent: KeyEvent): Boolean
+    protected abstract fun processKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean
 
     protected abstract fun measureAndLayout()
 

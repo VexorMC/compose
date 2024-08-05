@@ -16,12 +16,12 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.key.utf16CodePoint
 
-actual val KeyEvent.isTypedEvent: Boolean
+actual val InternalKeyEvent.isTypedEvent: Boolean
     get() = type == KeyEventType.KeyDown &&
         !isISOControl(utf16CodePoint) &&
         !isAppKitReserved(utf16CodePoint)

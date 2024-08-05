@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.InputMode
 import androidx.compose.ui.input.InputModeManager
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyInputModifierNode
 import androidx.compose.ui.input.key.NativeKeyEvent
 import androidx.compose.ui.input.key.SoftKeyboardInterceptionModifierNode
@@ -1005,19 +1005,19 @@ class FocusTargetAttachDetachTest {
     @Test
     fun focusTarget_nodeThatIsKeyInputNodeKind_implementing_receivesKeyEventsWhenFocused() {
         class FocusTargetAndKeyInputNode : DelegatingNode(), KeyInputModifierNode {
-            val keyEvents = mutableListOf<KeyEvent>()
+            val mInternalKeyEvents = mutableListOf<InternalKeyEvent>()
             val focusTargetNode = FocusTargetNode()
 
             init {
                 delegate(focusTargetNode)
             }
 
-            override fun onKeyEvent(event: KeyEvent): Boolean {
-                keyEvents.add(event)
+            override fun onKeyEvent(event: InternalKeyEvent): Boolean {
+                mInternalKeyEvents.add(event)
                 return true
             }
 
-            override fun onPreKeyEvent(event: KeyEvent) = false
+            override fun onPreKeyEvent(event: InternalKeyEvent) = false
         }
 
         val focusTargetAndKeyInputNode = FocusTargetAndKeyInputNode()
@@ -1046,23 +1046,23 @@ class FocusTargetAttachDetachTest {
 
         rule.onNodeWithTag(targetTestTag).performKeyInput { keyDown(Key.Enter) }
 
-        assertThat(focusTargetAndKeyInputNode.keyEvents).hasSize(1)
-        assertThat(focusTargetAndKeyInputNode.keyEvents[0].key).isEqualTo(Key.Enter)
+        assertThat(focusTargetAndKeyInputNode.mInternalKeyEvents).hasSize(1)
+        assertThat(focusTargetAndKeyInputNode.mInternalKeyEvents[0].key).isEqualTo(Key.Enter)
     }
 
     @OptIn(ExperimentalComposeUiApi::class, ExperimentalTestApi::class)
     @Test
     fun focusTarget_nodeThatIsKeyInputNodeKind_delegating_receivesKeyEventsWhenFocused() {
         class FocusTargetAndKeyInputNode : DelegatingNode() {
-            val keyEvents = mutableListOf<KeyEvent>()
+            val mInternalKeyEvents = mutableListOf<InternalKeyEvent>()
             val focusTargetNode = FocusTargetNode()
             val keyInputNode = object : KeyInputModifierNode, Modifier.Node() {
-                override fun onKeyEvent(event: KeyEvent): Boolean {
-                    keyEvents.add(event)
+                override fun onKeyEvent(event: InternalKeyEvent): Boolean {
+                    mInternalKeyEvents.add(event)
                     return true
                 }
 
-                override fun onPreKeyEvent(event: KeyEvent) = false
+                override fun onPreKeyEvent(event: InternalKeyEvent) = false
             }
 
             init {
@@ -1097,8 +1097,8 @@ class FocusTargetAttachDetachTest {
 
         rule.onNodeWithTag(targetTestTag).performKeyInput { keyDown(Key.Enter) }
 
-        assertThat(focusTargetAndKeyInputNode.keyEvents).hasSize(1)
-        assertThat(focusTargetAndKeyInputNode.keyEvents[0].key).isEqualTo(Key.Enter)
+        assertThat(focusTargetAndKeyInputNode.mInternalKeyEvents).hasSize(1)
+        assertThat(focusTargetAndKeyInputNode.mInternalKeyEvents[0].key).isEqualTo(Key.Enter)
     }
 
     @OptIn(ExperimentalComposeUiApi::class)
@@ -1106,16 +1106,16 @@ class FocusTargetAttachDetachTest {
     fun focusTarget_nodeThatIsSoftKeyInputNodeKind_implementing_receivesSoftKeyEventsWhenFocused() {
         class FocusTargetAndSoftKeyboardNode : DelegatingNode(),
             SoftKeyboardInterceptionModifierNode {
-            val keyEvents = mutableListOf<KeyEvent>()
+            val mInternalKeyEvents = mutableListOf<InternalKeyEvent>()
             val focusTargetNode = FocusTargetNode()
 
             init {
                 delegate(focusTargetNode)
             }
 
-            override fun onInterceptKeyBeforeSoftKeyboard(event: KeyEvent) = keyEvents.add(event)
+            override fun onInterceptKeyBeforeSoftKeyboard(event: InternalKeyEvent) = mInternalKeyEvents.add(event)
 
-            override fun onPreInterceptKeyBeforeSoftKeyboard(event: KeyEvent) = false
+            override fun onPreInterceptKeyBeforeSoftKeyboard(event: InternalKeyEvent) = false
         }
 
         val focusTargetAndSoftKeyboardNode = FocusTargetAndSoftKeyboardNode()
@@ -1142,7 +1142,7 @@ class FocusTargetAttachDetachTest {
         // SoftKeyboardInterceptionModifierNode-interceptable key event first. performKeyInput goes
         // through dispatchKeyEvent which does not notify SoftKeyboardInterceptionModifierNodes.
         rule.onRoot().performKeyPress(
-            KeyEvent(
+            InternalKeyEvent(
                 NativeKeyEvent(
                     android.view.KeyEvent.ACTION_DOWN,
                     android.view.KeyEvent.KEYCODE_ENTER
@@ -1150,22 +1150,22 @@ class FocusTargetAttachDetachTest {
             )
         )
 
-        assertThat(focusTargetAndSoftKeyboardNode.keyEvents).hasSize(1)
-        assertThat(focusTargetAndSoftKeyboardNode.keyEvents[0].key).isEqualTo(Key.Enter)
+        assertThat(focusTargetAndSoftKeyboardNode.mInternalKeyEvents).hasSize(1)
+        assertThat(focusTargetAndSoftKeyboardNode.mInternalKeyEvents[0].key).isEqualTo(Key.Enter)
     }
 
     @OptIn(ExperimentalComposeUiApi::class)
     @Test
     fun focusTarget_nodeThatIsSoftKeyInputNodeKind_delegating_receivesSoftKeyEventsWhenFocused() {
         class FocusTargetAndSoftKeyboardNode : DelegatingNode() {
-            val keyEvents = mutableListOf<KeyEvent>()
+            val mInternalKeyEvents = mutableListOf<InternalKeyEvent>()
             val focusTargetNode = FocusTargetNode()
             val softKeyboardInterceptionNode = object : SoftKeyboardInterceptionModifierNode,
                 Modifier.Node() {
-                override fun onInterceptKeyBeforeSoftKeyboard(event: KeyEvent) =
-                    keyEvents.add(event)
+                override fun onInterceptKeyBeforeSoftKeyboard(event: InternalKeyEvent) =
+                    mInternalKeyEvents.add(event)
 
-                override fun onPreInterceptKeyBeforeSoftKeyboard(event: KeyEvent) = false
+                override fun onPreInterceptKeyBeforeSoftKeyboard(event: InternalKeyEvent) = false
             }
 
             init {
@@ -1198,7 +1198,7 @@ class FocusTargetAttachDetachTest {
         // SoftKeyboardInterceptionModifierNode-interceptable key event first. performKeyInput goes
         // through dispatchKeyEvent which does not notify SoftKeyboardInterceptionModifierNodes.
         rule.onRoot().performKeyPress(
-            KeyEvent(
+            InternalKeyEvent(
                 NativeKeyEvent(
                     android.view.KeyEvent.ACTION_DOWN,
                     android.view.KeyEvent.KEYCODE_ENTER
@@ -1206,8 +1206,8 @@ class FocusTargetAttachDetachTest {
             )
         )
 
-        assertThat(focusTargetAndSoftKeyboardNode.keyEvents).hasSize(1)
-        assertThat(focusTargetAndSoftKeyboardNode.keyEvents[0].key).isEqualTo(Key.Enter)
+        assertThat(focusTargetAndSoftKeyboardNode.mInternalKeyEvents).hasSize(1)
+        assertThat(focusTargetAndSoftKeyboardNode.mInternalKeyEvents[0].key).isEqualTo(Key.Enter)
     }
 
     @OptIn(ExperimentalTestApi::class)

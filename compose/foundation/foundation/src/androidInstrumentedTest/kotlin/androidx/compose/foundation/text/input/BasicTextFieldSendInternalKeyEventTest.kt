@@ -36,7 +36,7 @@ import org.junit.runner.RunWith
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
-internal class BasicTextFieldSendKeyEventTest {
+internal class BasicTextFieldSendInternalKeyEventTest {
 
     @get:Rule
     val rule = createComposeRule()

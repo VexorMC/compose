@@ -17,17 +17,17 @@
 package androidx.compose.foundation.selection
 
 import androidx.compose.ui.input.key.Key.Companion.Spacebar
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 
 private val SPACE_KEY_CODE = Spacebar.keyCode
 /**
- * Whether the specified [KeyEvent] represents a user intent to perform a toggle.
+ * Whether the specified [InternalKeyEvent] represents a user intent to perform a toggle.
  * (eg. When you press Space on a focused checkbox, it should perform a toggle).
  */
-internal actual val KeyEvent.isToggle: Boolean
+internal actual val InternalKeyEvent.isToggle: Boolean
     get() = type == KeyEventType.KeyUp && when (key.keyCode) {
         SPACE_KEY_CODE -> true
         else -> false

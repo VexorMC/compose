@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Matrix
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.input.InputModeManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerIconService
 import androidx.compose.ui.modifier.ModifierLocalManager
 import androidx.compose.ui.platform.AccessibilityManager
@@ -41,7 +41,6 @@ import androidx.compose.ui.platform.ViewConfiguration
 import androidx.compose.ui.platform.WindowInfo
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runSkikoComposeUiTest
-import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextInputService
@@ -240,7 +239,7 @@ class DepthSortedSetTest {
         @InternalComposeUiApi
         override fun onInteropViewLayoutChange(view: InteropView) = throw IllegalStateException()
 
-        override fun getFocusDirection(keyEvent: KeyEvent): FocusDirection? = throw IllegalStateException()
+        override fun getFocusDirection(internalKeyEvent: InternalKeyEvent): FocusDirection? = throw IllegalStateException()
         override val measureIteration: Long get() = throw IllegalStateException()
         override val viewConfiguration: ViewConfiguration get() = throw IllegalStateException()
         override val snapshotObserver: OwnerSnapshotObserver get() = throw IllegalStateException()

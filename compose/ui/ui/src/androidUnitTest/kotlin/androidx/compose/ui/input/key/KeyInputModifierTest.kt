@@ -39,7 +39,7 @@ class KeyInputModifierTest {
 
     @Test
     fun testInspectorValueForKeyEvent() {
-        val onKeyEvent: (KeyEvent) -> Boolean = { true }
+        val onKeyEvent: (InternalKeyEvent) -> Boolean = { true }
         val modifier = Modifier.onKeyEvent(onKeyEvent).first() as InspectableValue
         assertThat(modifier.nameFallback).isEqualTo("onKeyEvent")
         assertThat(modifier.valueOverride).isNull()
@@ -50,7 +50,7 @@ class KeyInputModifierTest {
 
     @Test
     fun testInspectorValueForPreviewKeyEvent() {
-        val onPreviewKeyEvent: (KeyEvent) -> Boolean = { true }
+        val onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { true }
         val modifier = Modifier.onPreviewKeyEvent(onPreviewKeyEvent).first() as InspectableValue
         assertThat(modifier.nameFallback).isEqualTo("onPreviewKeyEvent")
         assertThat(modifier.valueOverride).isNull()

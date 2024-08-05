@@ -17,14 +17,14 @@
 package androidx.compose.foundation.text
 
 import android.view.KeyCharacterMap
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.utf16CodePoint
 
 internal actual class DeadKeyCombiner {
 
     private var deadKeyCode: Int? = null
 
-    actual fun consume(event: KeyEvent): Int? {
+    actual fun consume(event: InternalKeyEvent): Int? {
         val codePoint = event.utf16CodePoint
         if (codePoint and KeyCharacterMap.COMBINING_ACCENT != 0) {
             deadKeyCode = codePoint and KeyCharacterMap.COMBINING_ACCENT_MASK

@@ -44,7 +44,7 @@ import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.geometry.isUnspecified
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
@@ -942,7 +942,7 @@ internal class SelectionManager(private val selectionRegistrar: SelectionRegistr
     }
 }
 
-internal expect fun isCopyKeyEvent(keyEvent: KeyEvent): Boolean
+internal expect fun isCopyKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean
 
 internal expect fun Modifier.selectionMagnifier(manager: SelectionManager): Modifier
 

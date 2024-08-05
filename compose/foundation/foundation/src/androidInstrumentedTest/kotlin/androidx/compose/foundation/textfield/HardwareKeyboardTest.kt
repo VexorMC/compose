@@ -605,14 +605,14 @@ class HardwareKeyboardTest {
     }
 }
 
-private fun downEvent(key: Key, metaState: Int = 0): androidx.compose.ui.input.key.KeyEvent {
-    return androidx.compose.ui.input.key.KeyEvent(
+private fun downEvent(key: Key, metaState: Int = 0): androidx.compose.ui.input.key.InternalKeyEvent {
+    return androidx.compose.ui.input.key.InternalKeyEvent(
         KeyEvent(0L, 0L, KeyEvent.ACTION_DOWN, key.nativeKeyCode, 0, metaState)
     )
 }
 
-private fun upEvent(key: Key, metaState: Int = 0): androidx.compose.ui.input.key.KeyEvent {
-    return androidx.compose.ui.input.key.KeyEvent(
+private fun upEvent(key: Key, metaState: Int = 0): androidx.compose.ui.input.key.InternalKeyEvent {
+    return androidx.compose.ui.input.key.InternalKeyEvent(
         KeyEvent(0L, 0L, KeyEvent.ACTION_UP, key.nativeKeyCode, 0, metaState)
     )
 }

@@ -17,12 +17,12 @@
 package androidx.compose.foundation.text.selection
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
 // this doesn't sounds very sustainable
 // it would end up being a function for any conceptual keyevent (selectall, cut, copy, paste)
 // TODO(b/1564937)
-internal actual fun isCopyKeyEvent(keyEvent: KeyEvent): Boolean =
+internal actual fun isCopyKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean =
     TODO("implement native isCopyKeyEvent")
 /*
     keyEvent.key == Key.C && when (DesktopPlatform.Current) {

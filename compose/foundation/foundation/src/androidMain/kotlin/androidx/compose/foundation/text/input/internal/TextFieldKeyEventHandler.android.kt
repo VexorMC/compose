@@ -26,7 +26,7 @@ import android.view.KeyEvent.KEYCODE_DPAD_UP
 import androidx.compose.foundation.text.input.internal.selection.TextFieldSelectionState
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyDown
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.nativeKeyCode
@@ -36,14 +36,14 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 internal actual fun createTextFieldKeyEventHandler(): TextFieldKeyEventHandler =
     AndroidTextFieldKeyEventHandler()
 
-internal actual val KeyEvent.isFromSoftKeyboard: Boolean
+internal actual val InternalKeyEvent.isFromSoftKeyboard: Boolean
     get() = (nativeKeyEvent.flags and android.view.KeyEvent.FLAG_SOFT_KEYBOARD) ==
         android.view.KeyEvent.FLAG_SOFT_KEYBOARD
 
 internal class AndroidTextFieldKeyEventHandler : TextFieldKeyEventHandler() {
 
     override fun onPreKeyEvent(
-        event: KeyEvent,
+        event: InternalKeyEvent,
         textFieldState: TransformedTextFieldState,
         textFieldSelectionState: TextFieldSelectionState,
         focusManager: FocusManager,
@@ -91,7 +91,7 @@ internal class AndroidTextFieldKeyEventHandler : TextFieldKeyEventHandler() {
     }
 
     override fun onKeyEvent(
-        event: KeyEvent,
+        event: InternalKeyEvent,
         textFieldState: TransformedTextFieldState,
         textLayoutState: TextLayoutState,
         textFieldSelectionState: TextFieldSelectionState,
@@ -117,5 +117,5 @@ internal class AndroidTextFieldKeyEventHandler : TextFieldKeyEventHandler() {
     }
 }
 
-private fun KeyEvent.isKeyCode(keyCode: Int): Boolean =
+private fun InternalKeyEvent.isKeyCode(keyCode: Int): Boolean =
     this.key.nativeKeyCode == keyCode

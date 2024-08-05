@@ -33,7 +33,7 @@ import androidx.compose.ui.input.key.Key.Companion.DirectionRight
 import androidx.compose.ui.input.key.Key.Companion.DirectionUp
 import androidx.compose.ui.input.key.Key.Companion.Enter
 import androidx.compose.ui.input.key.Key.Companion.Tab
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.nativeKeyCode
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -107,7 +107,7 @@ class CustomFocusTraversalTest(
                 focusManager.moveFocus(FocusDirection.Next)
             }
         } else {
-            rule.onRoot().performKeyPress(KeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
+            rule.onRoot().performKeyPress(InternalKeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
         }
 
         // Assert.
@@ -158,7 +158,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeEvent = AndroidKeyEvent(0L, 0L, KeyDown, Tab.nativeKeyCode, 0, META_SHIFT_ON)
-            rule.onRoot().performKeyPress(KeyEvent(nativeEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeEvent))
         }
 
         // Assert.
@@ -209,7 +209,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, DirectionUp.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -260,7 +260,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, DirectionDown.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -311,7 +311,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, DirectionLeft.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -362,7 +362,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, DirectionRight.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -415,7 +415,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, DirectionLeft.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -468,7 +468,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, DirectionRight.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -528,7 +528,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, Enter.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -591,7 +591,7 @@ class CustomFocusTraversalTest(
             }
         } else {
             val nativeKeyEvent = AndroidKeyEvent(KeyDown, Enter.nativeKeyCode)
-            rule.onRoot().performKeyPress(KeyEvent(nativeKeyEvent))
+            rule.onRoot().performKeyPress(InternalKeyEvent(nativeKeyEvent))
         }
 
         // Assert.
@@ -652,7 +652,7 @@ class CustomFocusTraversalTest(
                 focusManager.moveFocus(FocusDirection.Next)
             }
         } else {
-            rule.onRoot().performKeyPress(KeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
+            rule.onRoot().performKeyPress(InternalKeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
         }
 
         // Assert.
@@ -705,7 +705,7 @@ class CustomFocusTraversalTest(
                 focusManager.moveFocus(FocusDirection.Next)
             }
         } else {
-            rule.onRoot().performKeyPress(KeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
+            rule.onRoot().performKeyPress(InternalKeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
         }
 
         // Assert.
@@ -757,7 +757,7 @@ class CustomFocusTraversalTest(
                 focusManager.moveFocus(FocusDirection.Next)
             }
         } else {
-            rule.onRoot().performKeyPress(KeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
+            rule.onRoot().performKeyPress(InternalKeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
         }
 
         // Assert.
@@ -818,7 +818,7 @@ class CustomFocusTraversalTest(
                 focusManager.moveFocus(FocusDirection.Next)
             }
         } else {
-            rule.onRoot().performKeyPress(KeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
+            rule.onRoot().performKeyPress(InternalKeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
         }
 
         // Assert.
@@ -876,7 +876,7 @@ class CustomFocusTraversalTest(
         if (moveFocusProgrammatically) {
             rule.runOnIdle { focusManager.moveFocus(FocusDirection.Next) }
         } else {
-            rule.onRoot().performKeyPress(KeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
+            rule.onRoot().performKeyPress(InternalKeyEvent(AndroidKeyEvent(KeyDown, Tab.nativeKeyCode)))
         }
 
         // Assert.

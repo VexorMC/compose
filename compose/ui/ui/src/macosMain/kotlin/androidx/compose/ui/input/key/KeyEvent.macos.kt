@@ -25,7 +25,7 @@ import platform.AppKit.NSEventModifierFlagShift
 import platform.AppKit.NSKeyDown
 import platform.AppKit.NSKeyUp
 
-internal fun NSEvent.toComposeEvent(): KeyEvent {
+internal fun NSEvent.toComposeEvent(): InternalKeyEvent {
     return KeyEvent(
         nativeKeyEvent = InternalKeyEvent(
             key = Key(keyCode.toLong()),

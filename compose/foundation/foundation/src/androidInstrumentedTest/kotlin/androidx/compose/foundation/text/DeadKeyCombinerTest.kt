@@ -16,7 +16,7 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.NativeKeyEvent
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
@@ -28,7 +28,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class DeadKeyCombinerTest {
 
-    private val keyEventUmlaut = KeyEvent(
+    private val mInternalKeyEventUmlaut = InternalKeyEvent(
         NativeKeyEvent(
             0,
             0,
@@ -39,75 +39,75 @@ class DeadKeyCombinerTest {
         )
     )
 
-    private val keyEventSpace =
-        KeyEvent(NativeKeyEvent(NativeKeyEvent.ACTION_DOWN, NativeKeyEvent.KEYCODE_SPACE))
+    private val mInternalKeyEventSpace =
+        InternalKeyEvent(NativeKeyEvent(NativeKeyEvent.ACTION_DOWN, NativeKeyEvent.KEYCODE_SPACE))
 
-    private val keyEventO =
-        KeyEvent(NativeKeyEvent(NativeKeyEvent.ACTION_DOWN, NativeKeyEvent.KEYCODE_O))
+    private val mInternalKeyEventO =
+        InternalKeyEvent(NativeKeyEvent(NativeKeyEvent.ACTION_DOWN, NativeKeyEvent.KEYCODE_O))
 
-    private val keyEventJ =
-        KeyEvent(NativeKeyEvent(NativeKeyEvent.ACTION_DOWN, NativeKeyEvent.KEYCODE_J))
+    private val mInternalKeyEventJ =
+        InternalKeyEvent(NativeKeyEvent(NativeKeyEvent.ACTION_DOWN, NativeKeyEvent.KEYCODE_J))
 
     @Test
     fun testHappyPath() {
         test(
-            keyEventUmlaut to null,
-            keyEventO to 'ö',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventO to 'ö',
         )
     }
 
     @Test
     fun testMultipleDeadKeysFollowedByMultipleComposingKeys() {
         test(
-            keyEventUmlaut to null,
-            keyEventUmlaut to null,
-            keyEventUmlaut to null,
-            keyEventO to 'ö',
-            keyEventO to 'o',
-            keyEventO to 'o',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventO to 'ö',
+            mInternalKeyEventO to 'o',
+            mInternalKeyEventO to 'o',
         )
     }
 
     @Test
     fun testMultiplePressesInterleaved() {
         test(
-            keyEventO to 'o',
-            keyEventUmlaut to null,
-            keyEventO to 'ö',
-            keyEventUmlaut to null,
-            keyEventUmlaut to null,
-            keyEventO to 'ö',
-            keyEventUmlaut to null,
-            keyEventO to 'ö',
-            keyEventO to 'o',
+            mInternalKeyEventO to 'o',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventO to 'ö',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventO to 'ö',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventO to 'ö',
+            mInternalKeyEventO to 'o',
         )
     }
 
     @Test
     fun testNonExistingCombinationFallsBackToCurrentKey() {
         test(
-            keyEventUmlaut to null,
-            keyEventJ to 'j',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventJ to 'j',
         )
     }
 
     @Test
     fun testSameDeadKey() {
         test(
-            keyEventUmlaut to null,
-            keyEventUmlaut to null,
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventUmlaut to null,
         )
     }
 
     @Test
     fun testDeadKeyThenSpaceOutputsTheAccent() {
         test(
-            keyEventUmlaut to null,
-            keyEventSpace to '¨',
+            mInternalKeyEventUmlaut to null,
+            mInternalKeyEventSpace to '¨',
         )
     }
 
-    private fun test(vararg pairs: Pair<KeyEvent, Char?>) {
+    private fun test(vararg pairs: Pair<InternalKeyEvent, Char?>) {
         val combiner = DeadKeyCombiner()
         pairs.forEach { (event, result) ->
             assertThat(combiner.consume(event)?.toChar()).run {

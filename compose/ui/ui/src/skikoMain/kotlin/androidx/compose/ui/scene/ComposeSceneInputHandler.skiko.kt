@@ -19,7 +19,7 @@ package androidx.compose.ui.scene
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.copy
 import androidx.compose.ui.input.key.internal
@@ -50,7 +50,7 @@ import org.jetbrains.skiko.currentNanoTime
 internal class ComposeSceneInputHandler(
     private val prepareForPointerInputEvent: () -> Unit,
     processPointerInputEvent: (PointerInputEvent) -> Unit,
-    private val processKeyEvent: (KeyEvent) -> Boolean,
+    private val processKeyEvent: (InternalKeyEvent) -> Boolean,
 ) {
     private val defaultPointerStateTracker = DefaultPointerStateTracker()
     private val pointerPositions = mutableStateMapOf<PointerId, Offset>()
@@ -124,9 +124,9 @@ internal class ComposeSceneInputHandler(
         updatePointerPositions(event)
     }
 
-    fun onKeyEvent(keyEvent: KeyEvent): Boolean {
-        defaultPointerStateTracker.onKeyEvent(keyEvent)
-        return processKeyEvent(keyEvent.withTrackedModifiers())
+    fun onKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean {
+        defaultPointerStateTracker.onKeyEvent(internalKeyEvent)
+        return processKeyEvent(internalKeyEvent.withTrackedModifiers())
     }
 
     fun updatePointerPosition() = trace("ComposeSceneInputHandler:updatePointerPosition") {
@@ -165,9 +165,9 @@ internal class ComposeSceneInputHandler(
     }
 
     /**
-     * Make sure that the current [KeyEvent] contains tracked modifiers.
+     * Make sure that the current [InternalKeyEvent] contains tracked modifiers.
      */
-    private fun KeyEvent.withTrackedModifiers() = if (
+    private fun InternalKeyEvent.withTrackedModifiers() = if (
         internal.nativeEvent == null && // It's not system initiated event and
         internal.modifiers.packedValue == 0 // modifiers aren't explicitly specified
     ) {
@@ -185,10 +185,10 @@ private class DefaultPointerStateTracker {
         )
     }
 
-    fun onKeyEvent(keyEvent: KeyEvent) {
+    fun onKeyEvent(internalKeyEvent: InternalKeyEvent) {
         keyboardModifiers = keyboardModifiers.update(
-            key = keyEvent.key,
-            eventType = keyEvent.type
+            key = internalKeyEvent.key,
+            eventType = internalKeyEvent.type
         )
     }
 

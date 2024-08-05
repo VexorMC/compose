@@ -21,7 +21,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.ComposeFeatureFlags
 import androidx.compose.ui.LayerType
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.scene.ComposeContainer
 import androidx.compose.ui.window.LocalWindow
 import java.awt.Component
@@ -127,8 +127,8 @@ internal class ComposeWindowPanel(
     }
 
     fun setContent(
-        onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
-        onKeyEvent: (KeyEvent) -> Boolean = { false },
+        onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { false },
+        onKeyEvent: (InternalKeyEvent) -> Boolean = { false },
         modifier: Modifier = Modifier,
         content: @Composable () -> Unit
     ) {

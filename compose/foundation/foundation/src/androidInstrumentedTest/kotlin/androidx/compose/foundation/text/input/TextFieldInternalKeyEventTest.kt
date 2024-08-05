@@ -58,7 +58,7 @@ import org.junit.runner.RunWith
 @MediumTest
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalTestApi::class)
-class TextFieldKeyEventTest {
+class TextFieldInternalKeyEventTest {
     @get:Rule
     val rule = createComposeRule()
 

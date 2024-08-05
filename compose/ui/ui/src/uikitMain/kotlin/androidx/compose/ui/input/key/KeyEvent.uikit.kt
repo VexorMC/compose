@@ -31,7 +31,7 @@ import platform.UIKit.UIPressTypePageUp
 import platform.UIKit.UIPressTypeRightArrow
 import platform.UIKit.UIPressTypeUpArrow
 
-internal fun UIPress.toComposeEvent(): KeyEvent {
+internal fun UIPress.toComposeEvent(): InternalKeyEvent {
     val keyEventType = when (phase) {
         UIPressPhaseBegan -> KeyEventType.KeyDown
         UIPressPhaseEnded -> KeyEventType.KeyUp

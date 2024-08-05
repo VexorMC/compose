@@ -113,8 +113,8 @@ internal abstract class DesktopComposeSceneLayer(
     }
 
     final override fun setKeyEventListener(
-        onPreviewKeyEvent: ((androidx.compose.ui.input.key.KeyEvent) -> Boolean)?,
-        onKeyEvent: ((androidx.compose.ui.input.key.KeyEvent) -> Boolean)?
+        onPreviewKeyEvent: ((androidx.compose.ui.input.key.InternalKeyEvent) -> Boolean)?,
+        onKeyEvent: ((androidx.compose.ui.input.key.InternalKeyEvent) -> Boolean)?
     ) {
         mediator?.setKeyEventListeners(
             onPreviewKeyEvent = onPreviewKeyEvent ?: { false },

@@ -31,7 +31,7 @@ import androidx.compose.ui.platform.InspectorInfo
  * @sample androidx.compose.ui.samples.KeyEventSample
  */
 fun Modifier.onKeyEvent(
-    onKeyEvent: (KeyEvent) -> Boolean
+    onKeyEvent: (InternalKeyEvent) -> Boolean
 ): Modifier = this then KeyInputElement(onKeyEvent = onKeyEvent, onPreKeyEvent = null)
 
 /**
@@ -39,7 +39,7 @@ fun Modifier.onKeyEvent(
  * allow it to intercept hardware key events when it (or one of its children) is focused.
  *
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be sent
  * to this [onPreviewKeyEvent]'s child. If none of the children consume the event, it will be
  * sent back up to the root [KeyInputModifierNode] using the onKeyEvent callback.
@@ -47,12 +47,12 @@ fun Modifier.onKeyEvent(
  * @sample androidx.compose.ui.samples.KeyEventSample
  */
 fun Modifier.onPreviewKeyEvent(
-    onPreviewKeyEvent: (KeyEvent) -> Boolean
+    onPreviewKeyEvent: (InternalKeyEvent) -> Boolean
 ): Modifier = this then KeyInputElement(onKeyEvent = null, onPreKeyEvent = onPreviewKeyEvent)
 
 internal data class KeyInputElement(
-    val onKeyEvent: ((KeyEvent) -> Boolean)?,
-    val onPreKeyEvent: ((KeyEvent) -> Boolean)?
+    val onKeyEvent: ((InternalKeyEvent) -> Boolean)?,
+    val onPreKeyEvent: ((InternalKeyEvent) -> Boolean)?
 ) : ModifierNodeElement<KeyInputNode>() {
     override fun create() = KeyInputNode(onKeyEvent, onPreKeyEvent)
 
@@ -74,9 +74,9 @@ internal data class KeyInputElement(
 }
 
 internal class KeyInputNode(
-    var onEvent: ((KeyEvent) -> Boolean)?,
-    var onPreEvent: ((KeyEvent) -> Boolean)?
+    var onEvent: ((InternalKeyEvent) -> Boolean)?,
+    var onPreEvent: ((InternalKeyEvent) -> Boolean)?
 ) : KeyInputModifierNode, Modifier.Node() {
-    override fun onKeyEvent(event: KeyEvent): Boolean = this.onEvent?.invoke(event) ?: false
-    override fun onPreKeyEvent(event: KeyEvent): Boolean = this.onPreEvent?.invoke(event) ?: false
+    override fun onKeyEvent(event: InternalKeyEvent): Boolean = this.onEvent?.invoke(event) ?: false
+    override fun onPreKeyEvent(event: InternalKeyEvent): Boolean = this.onPreEvent?.invoke(event) ?: false
 }

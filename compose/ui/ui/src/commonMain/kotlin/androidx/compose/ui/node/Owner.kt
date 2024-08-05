@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.GraphicsContext
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.input.InputModeManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerIconService
 import androidx.compose.ui.input.pointer.PositionCalculator
 import androidx.compose.ui.layout.Placeable
@@ -295,7 +295,7 @@ internal interface Owner : PositionCalculator {
      * The [FocusDirection] represented by the specified keyEvent.
      */
 
-    fun getFocusDirection(keyEvent: KeyEvent): FocusDirection?
+    fun getFocusDirection(internalKeyEvent: InternalKeyEvent): FocusDirection?
 
     val measureIteration: Long
 

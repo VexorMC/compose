@@ -16,7 +16,7 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
 /**
  * Key combiner which buffers dead keys and combines them with subsequent keys as necessary.
@@ -30,5 +30,5 @@ internal expect class DeadKeyCombiner() {
      * @return a unicode code point to emit in response to the event,
      * or null if no code point should be emitted
      */
-    fun consume(event: KeyEvent): Int?
+    fun consume(event: InternalKeyEvent): Int?
 }

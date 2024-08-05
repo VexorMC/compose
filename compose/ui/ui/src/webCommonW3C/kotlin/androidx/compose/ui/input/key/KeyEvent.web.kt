@@ -28,10 +28,10 @@ private fun KeyboardEvent.toInputModifiers(): PointerKeyboardModifiers {
     )
 }
 
-internal fun KeyboardEvent.toComposeEvent(): KeyEvent {
+internal fun KeyboardEvent.toComposeEvent(): InternalKeyEvent {
     val composeKey = toKey()
-    return KeyEvent(
-        nativeKeyEvent = InternalKeyEvent(
+    return InternalKeyEvent(
+        nativeKeyEvent = NativeKeyEvent(
             key = composeKey,
             type = when (type) {
                 "keydown" -> KeyEventType.KeyDown

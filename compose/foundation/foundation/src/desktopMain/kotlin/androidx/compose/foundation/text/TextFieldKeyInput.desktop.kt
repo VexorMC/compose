@@ -17,7 +17,7 @@
 package androidx.compose.foundation.text
 
 import androidx.compose.ui.awt.awtEventOrNull
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
 private fun Char.isPrintable(): Boolean {
     val block = Character.UnicodeBlock.of(this)
@@ -27,6 +27,6 @@ private fun Char.isPrintable(): Boolean {
         block != Character.UnicodeBlock.SPECIALS
 }
 
-actual val KeyEvent.isTypedEvent: Boolean
+actual val InternalKeyEvent.isTypedEvent: Boolean
     get() = awtEventOrNull?.id == java.awt.event.KeyEvent.KEY_TYPED &&
         awtEventOrNull?.keyChar?.isPrintable() == true

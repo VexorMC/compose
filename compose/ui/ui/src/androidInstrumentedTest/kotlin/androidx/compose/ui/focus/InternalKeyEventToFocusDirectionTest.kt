@@ -29,7 +29,7 @@ import androidx.compose.ui.focus.FocusDirection.Companion.Previous
 import androidx.compose.ui.focus.FocusDirection.Companion.Right
 import androidx.compose.ui.focus.FocusDirection.Companion.Up
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.nativeKeyCode
 import androidx.compose.ui.node.Owner
 import androidx.compose.ui.platform.LocalView
@@ -45,7 +45,7 @@ import org.junit.runner.RunWith
 @SmallTest
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalComposeUiApi::class)
-class KeyEventToFocusDirectionTest {
+class InternalKeyEventToFocusDirectionTest {
     @get:Rule
     val rule = createComposeRule()
 
@@ -61,10 +61,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun left() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionLeft.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionLeft.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Left)
@@ -73,10 +73,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun right() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionRight.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionRight.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Right)
@@ -85,10 +85,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun up() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionUp.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionUp.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Up)
@@ -97,10 +97,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun down() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionDown.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionDown.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Down)
@@ -109,10 +109,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun page_up() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.PageUp.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.PageUp.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Up)
@@ -121,10 +121,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun page_down() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.PageDown.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.PageDown.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Down)
@@ -133,10 +133,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun tab_next() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.Tab.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.Tab.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Next)
@@ -145,10 +145,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun shiftTab_previous() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(0L, 0L, KeyDown, Key.Tab.nativeKeyCode, 0, Shift))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(0L, 0L, KeyDown, Key.Tab.nativeKeyCode, 0, Shift))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         assertThat(focusDirection).isEqualTo(Previous)
@@ -157,10 +157,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun dpadCenter_enter() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionCenter.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.DirectionCenter.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         @OptIn(ExperimentalComposeUiApi::class)
@@ -170,10 +170,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun enter_enter() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.Enter.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.Enter.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         @OptIn(ExperimentalComposeUiApi::class)
@@ -183,10 +183,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun numPadEnter_enter() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.NumPadEnter.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.NumPadEnter.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         @OptIn(ExperimentalComposeUiApi::class)
@@ -196,10 +196,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun back_exit() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.Back.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.Back.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         @OptIn(ExperimentalComposeUiApi::class)
@@ -209,10 +209,10 @@ class KeyEventToFocusDirectionTest {
     @Test
     fun esc_exit() {
         // Arrange.
-        val keyEvent = KeyEvent(AndroidKeyEvent(KeyDown, Key.Escape.nativeKeyCode))
+        val internalKeyEvent = InternalKeyEvent(AndroidKeyEvent(KeyDown, Key.Escape.nativeKeyCode))
 
         // Act.
-        val focusDirection = owner.getFocusDirection(keyEvent)
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
 
         // Assert.
         @OptIn(ExperimentalComposeUiApi::class)

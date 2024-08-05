@@ -17,7 +17,7 @@
 package androidx.compose.foundation.text
 
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.isAltPressed
 import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isMetaPressed
@@ -35,7 +35,7 @@ internal expect val MappedKeys.K: Key
 internal expect val MappedKeys.O: Key
 
 internal object defaultSkikoKeyMapping : KeyMapping {
-    override fun map(event: KeyEvent): KeyCommand? {
+    override fun map(event: InternalKeyEvent): KeyCommand? {
         return when {
             event.isCtrlPressed && event.isShiftPressed -> {
                 when (event.key) {
@@ -50,9 +50,9 @@ internal object defaultSkikoKeyMapping : KeyMapping {
 }
 
 internal fun createMacosDefaultKeyMapping(): KeyMapping {
-    val common = commonKeyMapping(KeyEvent::isMetaPressed)
+    val common = commonKeyMapping(InternalKeyEvent::isMetaPressed)
     return object : KeyMapping {
-        override fun map(event: KeyEvent): KeyCommand? {
+        override fun map(event: InternalKeyEvent): KeyCommand? {
             return when {
                 event.isMetaPressed && event.isCtrlPressed ->
                     when (event.key) {

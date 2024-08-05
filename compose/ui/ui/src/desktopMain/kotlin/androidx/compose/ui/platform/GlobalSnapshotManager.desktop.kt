@@ -16,7 +16,8 @@
 
 package androidx.compose.ui.platform
 
+import dev.lunasa.lwjgl.ComposeLWJGL
 import kotlinx.coroutines.CoroutineDispatcher
 import org.jetbrains.skiko.MainUIDispatcher
 
-internal actual val GlobalSnapshotManagerDispatcher: CoroutineDispatcher = MainUIDispatcher
+internal actual val GlobalSnapshotManagerDispatcher: CoroutineDispatcher = ComposeLWJGL.globalSnapshotManagerDispatcher ?: MainUIDispatcher

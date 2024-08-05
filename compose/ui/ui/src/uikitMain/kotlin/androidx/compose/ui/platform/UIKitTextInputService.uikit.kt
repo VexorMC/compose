@@ -20,7 +20,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Matrix
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
@@ -195,7 +195,7 @@ internal class UIKitTextInputService(
         }
     }
 
-    fun onPreviewKeyEvent(event: KeyEvent): Boolean {
+    fun onPreviewKeyEvent(event: InternalKeyEvent): Boolean {
         return when (event.key) {
             Key.Enter -> handleEnterKey(event)
             Key.Backspace -> handleBackspace(event)
@@ -222,7 +222,7 @@ internal class UIKitTextInputService(
         this.textLayoutResult = textLayoutResult
     }
 
-    private fun handleEnterKey(event: KeyEvent): Boolean {
+    private fun handleEnterKey(event: InternalKeyEvent): Boolean {
         _tempImeActionIsCalledWithHardwareReturnKey = false
         return when (event.type) {
             KeyEventType.KeyUp -> {
@@ -240,7 +240,7 @@ internal class UIKitTextInputService(
         }
     }
 
-    private fun handleBackspace(event: KeyEvent): Boolean {
+    private fun handleBackspace(event: InternalKeyEvent): Boolean {
         // This prevents two characters from being removed for one hardware backspace key press.
         return event.type == KeyEventType.KeyDown
     }

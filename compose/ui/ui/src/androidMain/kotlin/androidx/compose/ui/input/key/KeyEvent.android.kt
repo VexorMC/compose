@@ -33,7 +33,7 @@ actual typealias NativeKeyEvent = android.view.KeyEvent
  *
  * @sample androidx.compose.ui.samples.KeyEventIsAltPressedSample
  */
-actual val KeyEvent.key: Key
+actual val InternalKeyEvent.key: Key
     get() = Key(nativeKeyEvent.keyCode)
 
 /**
@@ -56,7 +56,7 @@ actual val KeyEvent.key: Key
  * that should be combined with another to actually produce a character -- see
  * [KeyCharacterMap.getDeadChar] -- after masking with [KeyCharacterMap.COMBINING_ACCENT_MASK].
  */
-actual val KeyEvent.utf16CodePoint: Int
+actual val InternalKeyEvent.utf16CodePoint: Int
     get() = nativeKeyEvent.unicodeChar
 
 /**
@@ -64,7 +64,7 @@ actual val KeyEvent.utf16CodePoint: Int
  *
  * @sample androidx.compose.ui.samples.KeyEventTypeSample
  */
-actual val KeyEvent.type: KeyEventType
+actual val InternalKeyEvent.type: KeyEventType
     get() = when (nativeKeyEvent.action) {
         ACTION_DOWN -> KeyDown
         ACTION_UP -> KeyUp
@@ -76,7 +76,7 @@ actual val KeyEvent.type: KeyEventType
  *
  * @sample androidx.compose.ui.samples.KeyEventIsAltPressedSample
  */
-actual val KeyEvent.isAltPressed: Boolean
+actual val InternalKeyEvent.isAltPressed: Boolean
     get() = nativeKeyEvent.isAltPressed
 
 /**
@@ -84,7 +84,7 @@ actual val KeyEvent.isAltPressed: Boolean
  *
  * @sample androidx.compose.ui.samples.KeyEventIsCtrlPressedSample
  */
-actual val KeyEvent.isCtrlPressed: Boolean
+actual val InternalKeyEvent.isCtrlPressed: Boolean
     get() = nativeKeyEvent.isCtrlPressed
 
 /**
@@ -92,7 +92,7 @@ actual val KeyEvent.isCtrlPressed: Boolean
  *
  * @sample androidx.compose.ui.samples.KeyEventIsMetaPressedSample
  */
-actual val KeyEvent.isMetaPressed: Boolean
+actual val InternalKeyEvent.isMetaPressed: Boolean
     get() = nativeKeyEvent.isMetaPressed
 
 /**
@@ -100,5 +100,5 @@ actual val KeyEvent.isMetaPressed: Boolean
  *
  * @sample androidx.compose.ui.samples.KeyEventIsShiftPressedSample
  */
-actual val KeyEvent.isShiftPressed: Boolean
+actual val InternalKeyEvent.isShiftPressed: Boolean
     get() = nativeKeyEvent.isShiftPressed

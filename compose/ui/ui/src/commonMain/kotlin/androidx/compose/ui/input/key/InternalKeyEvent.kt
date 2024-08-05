@@ -22,8 +22,8 @@ package androidx.compose.ui.input.key
 expect class NativeKeyEvent
 
 /**
- * When a user presses a key on a hardware keyboard, a [KeyEvent] is sent to the item that is
- * currently focused. Any parent composable can intercept this [key event][KeyEvent] on its way to
+ * When a user presses a key on a hardware keyboard, a [InternalKeyEvent] is sent to the item that is
+ * currently focused. Any parent composable can intercept this [key event][InternalKeyEvent] on its way to
  * the focused item by using [Modifier.onPreviewKeyEvent()]][onPreviewKeyEvent]. If the item is
  * not consumed, it returns back to each parent and can be intercepted by using
  * [Modifier.onKeyEvent()]][onKeyEvent].
@@ -31,14 +31,14 @@ expect class NativeKeyEvent
  * @sample androidx.compose.ui.samples.KeyEventSample
  */
 @kotlin.jvm.JvmInline
-value class KeyEvent(val nativeKeyEvent: NativeKeyEvent)
+value class InternalKeyEvent(val nativeKeyEvent: NativeKeyEvent)
 
 /**
  * The key that was pressed.
  *
  * @sample androidx.compose.ui.samples.KeyEventIsAltPressedSample
  */
-expect val KeyEvent.key: Key
+expect val InternalKeyEvent.key: Key
 
 /**
  * The UTF16 value corresponding to the key event that was pressed. The unicode character
@@ -56,42 +56,42 @@ expect val KeyEvent.key: Key
  * as a pair of char values, the first from the high-surrogates range, (\uD800-\uDBFF), the
  * second from the low-surrogates range (\uDC00-\uDFFF).
  */
-expect val KeyEvent.utf16CodePoint: Int
+expect val InternalKeyEvent.utf16CodePoint: Int
 
 /**
  * The [type][KeyEventType] of key event.
  *
  * @sample androidx.compose.ui.samples.KeyEventTypeSample
  */
-expect val KeyEvent.type: KeyEventType
+expect val InternalKeyEvent.type: KeyEventType
 
 /**
  * Indicates whether the Alt key is pressed.
  *
  * @sample androidx.compose.ui.samples.KeyEventIsAltPressedSample
  */
-expect val KeyEvent.isAltPressed: Boolean
+expect val InternalKeyEvent.isAltPressed: Boolean
 
 /**
  * Indicates whether the Ctrl key is pressed.
  *
  * @sample androidx.compose.ui.samples.KeyEventIsCtrlPressedSample
  */
-expect val KeyEvent.isCtrlPressed: Boolean
+expect val InternalKeyEvent.isCtrlPressed: Boolean
 
 /**
  * Indicates whether the Meta key is pressed.
  *
  * @sample androidx.compose.ui.samples.KeyEventIsMetaPressedSample
  */
-expect val KeyEvent.isMetaPressed: Boolean
+expect val InternalKeyEvent.isMetaPressed: Boolean
 
 /**
  * Indicates whether the Shift key is pressed.
  *
  * @sample androidx.compose.ui.samples.KeyEventIsShiftPressedSample
  */
-expect val KeyEvent.isShiftPressed: Boolean
+expect val InternalKeyEvent.isShiftPressed: Boolean
 
 /**
  * The type of Key Event.

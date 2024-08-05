@@ -17,29 +17,29 @@
 package androidx.compose.material
 
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.key
 
-internal actual val KeyEvent.isDirectionUp: Boolean
+internal actual val InternalKeyEvent.isDirectionUp: Boolean
     get() = key == Key.DirectionUp
 
-internal actual val KeyEvent.isDirectionDown: Boolean
+internal actual val InternalKeyEvent.isDirectionDown: Boolean
     get() = key == Key.DirectionDown
 
-internal actual val KeyEvent.isDirectionRight: Boolean
+internal actual val InternalKeyEvent.isDirectionRight: Boolean
     get() = key == Key.DirectionRight
 
-internal actual val KeyEvent.isDirectionLeft: Boolean
+internal actual val InternalKeyEvent.isDirectionLeft: Boolean
     get() = key == Key.DirectionLeft
 
-internal actual val KeyEvent.isHome: Boolean
+internal actual val InternalKeyEvent.isHome: Boolean
     get() = key == Key.Home
 
-internal actual val KeyEvent.isMoveEnd: Boolean
+internal actual val InternalKeyEvent.isMoveEnd: Boolean
     get() = key == Key.MoveEnd
 
-internal actual val KeyEvent.isPgUp: Boolean
+internal actual val InternalKeyEvent.isPgUp: Boolean
     get() = key == Key.PageUp
 
-internal actual val KeyEvent.isPgDn: Boolean
+internal actual val InternalKeyEvent.isPgDn: Boolean
     get() = key == Key.PageDown

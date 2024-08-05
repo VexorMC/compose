@@ -16,11 +16,11 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.utf16CodePoint
 
 internal actual class DeadKeyCombiner {
     // TODO needs actual impl
     // TODO: [1.4 Update] provide proper implementation
-    actual fun consume(event: KeyEvent): Int? = event.utf16CodePoint
+    actual fun consume(event: InternalKeyEvent): Int? = event.utf16CodePoint
 }

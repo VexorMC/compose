@@ -42,7 +42,7 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.input.InputMode
 import androidx.compose.ui.input.InputModeManager
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
@@ -289,11 +289,11 @@ actual fun DropdownMenuItem(
 
 @OptIn(ExperimentalComposeUiApi::class)
 internal fun handleDropdownOnKeyEvent(
-    keyEvent: KeyEvent,
+    internalKeyEvent: InternalKeyEvent,
     focusManager: FocusManager?,
     inputModeManager: InputModeManager?
-): Boolean = if (keyEvent.type == KeyEventType.KeyDown) {
-    when (keyEvent.key) {
+): Boolean = if (internalKeyEvent.type == KeyEventType.KeyDown) {
+    when (internalKeyEvent.key) {
         Key.DirectionDown -> {
             inputModeManager?.requestInputMode(InputMode.Keyboard)
             focusManager?.moveFocus(FocusDirection.Next)

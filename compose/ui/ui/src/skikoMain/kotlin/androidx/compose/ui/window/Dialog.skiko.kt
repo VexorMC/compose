@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
@@ -148,7 +148,7 @@ actual fun Dialog(
     val currentOnDismissRequest by rememberUpdatedState(onDismissRequest)
 
     val onKeyEvent = if (properties.dismissOnBackPress) {
-        { event: KeyEvent ->
+        { event: InternalKeyEvent ->
             if (event.isDismissRequest()) {
                 currentOnDismissRequest()
                 true
@@ -186,8 +186,8 @@ actual fun Dialog(
 private fun DialogLayout(
     properties: DialogProperties,
     modifier: Modifier = Modifier,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean)? = null,
-    onKeyEvent: ((KeyEvent) -> Boolean)? = null,
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
+    onKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
     onOutsidePointerEvent: ((eventType: PointerEventType, button: PointerButton?) -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
@@ -254,7 +254,7 @@ private fun rememberDialogMeasurePolicy(
     }
 }
 
-private fun KeyEvent.isDismissRequest() =
+private fun InternalKeyEvent.isDismissRequest() =
     type == KeyEventType.KeyDown && key == Key.Escape
 
 internal fun getDialogScrimBlendMode(isWindowTransparent: Boolean) =

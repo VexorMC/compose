@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.CompositionLocalContext
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.platform.PlatformContext
@@ -206,8 +206,8 @@ internal class UIViewComposeSceneLayer(
     }
 
     override fun setKeyEventListener(
-        onPreviewKeyEvent: ((KeyEvent) -> Boolean)?,
-        onKeyEvent: ((KeyEvent) -> Boolean)?
+        onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)?,
+        onKeyEvent: ((InternalKeyEvent) -> Boolean)?
     ) {
         mediator.setKeyEventListener(onPreviewKeyEvent, onKeyEvent)
     }

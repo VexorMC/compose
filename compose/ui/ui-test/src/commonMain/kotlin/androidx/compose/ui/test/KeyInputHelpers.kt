@@ -16,18 +16,18 @@
 
 package androidx.compose.ui.test
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.key
 
 /**
- * Send the specified [KeyEvent] to the focused component.
+ * Send the specified [InternalKeyEvent] to the focused component.
  *
  * @return true if the event was consumed. False otherwise.
  */
-fun SemanticsNodeInteraction.performKeyPress(keyEvent: KeyEvent): Boolean {
-    val semanticsNode = fetchSemanticsNode("Failed to send key Event (${keyEvent.key})")
+fun SemanticsNodeInteraction.performKeyPress(internalKeyEvent: InternalKeyEvent): Boolean {
+    val semanticsNode = fetchSemanticsNode("Failed to send key Event (${internalKeyEvent.key})")
     val root = semanticsNode.root
     requireNotNull(root) { "Failed to find owner" }
     @OptIn(InternalTestApi::class)
-    return testContext.testOwner.runOnUiThread { root.sendKeyEvent(keyEvent) }
+    return testContext.testOwner.runOnUiThread { root.sendKeyEvent(internalKeyEvent) }
 }

@@ -136,7 +136,7 @@ import androidx.compose.ui.input.key.Key.Companion.NumPadEnter
 import androidx.compose.ui.input.key.Key.Companion.PageDown
 import androidx.compose.ui.input.key.Key.Companion.PageUp
 import androidx.compose.ui.input.key.Key.Companion.Tab
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyDown
 import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
@@ -932,28 +932,28 @@ internal class AndroidComposeView(
     /**
      * This function is used by the testing framework to send key events.
      */
-    override fun sendKeyEvent(keyEvent: KeyEvent): Boolean =
+    override fun sendKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean =
     // First dispatch the key event to mimic the event being intercepted before it is sent to
         // the soft keyboard.
-        focusOwner.dispatchInterceptedSoftKeyboardEvent(keyEvent) ||
+        focusOwner.dispatchInterceptedSoftKeyboardEvent(internalKeyEvent) ||
             // Next, send the key event to the Soft Keyboard.
             // TODO(b/272600716): Send the key event to the IME.
 
             // Finally, dispatch the key event to onPreKeyEvent/onKeyEvent listeners.
-            focusOwner.dispatchKeyEvent(keyEvent)
+            focusOwner.dispatchKeyEvent(internalKeyEvent)
 
     override fun dispatchKeyEvent(event: AndroidKeyEvent): Boolean = if (isFocused) {
         // Focus lies within the Compose hierarchy, so we dispatch the key event to the
         // appropriate place.
         _windowInfo.keyboardModifiers = PointerKeyboardModifiers(event.metaState)
         // If the event is not consumed, use the default implementation.
-        focusOwner.dispatchKeyEvent(KeyEvent(event)) || super.dispatchKeyEvent(event)
+        focusOwner.dispatchKeyEvent(InternalKeyEvent(event)) || super.dispatchKeyEvent(event)
     } else {
         // This Owner has a focused child view, which is a view interoperability use case,
         // so we use the default ViewGroup behavior which will route tke key event to the
         // focused child view.
         focusOwner.dispatchKeyEvent(
-            keyEvent = KeyEvent(event),
+            internalKeyEvent = InternalKeyEvent(event),
             onFocusedItem = {
                 // TODO(b/320510084): Add tests to verify that embedded views receive key events.
                 super.dispatchKeyEvent(event)
@@ -962,7 +962,7 @@ internal class AndroidComposeView(
     }
 
     override fun dispatchKeyEventPreIme(event: AndroidKeyEvent): Boolean {
-        return (isFocused && focusOwner.dispatchInterceptedSoftKeyboardEvent(KeyEvent(event))) ||
+        return (isFocused && focusOwner.dispatchInterceptedSoftKeyboardEvent(InternalKeyEvent(event))) ||
             // If this view is not focused, and it received a key event, it means this is a view
             // interoperability use case and we need to route the event to the embedded child view.
             // Also, if this event wasn't consumed by the compose hierarchy, we need to send it back
@@ -1531,9 +1531,9 @@ internal class AndroidComposeView(
         scheduleMeasureAndLayout()
     }
 
-    override fun getFocusDirection(keyEvent: KeyEvent): FocusDirection? {
-        return when (keyEvent.key) {
-            Tab -> if (keyEvent.isShiftPressed) Previous else Next
+    override fun getFocusDirection(internalKeyEvent: InternalKeyEvent): FocusDirection? {
+        return when (internalKeyEvent.key) {
+            Tab -> if (internalKeyEvent.isShiftPressed) Previous else Next
             DirectionRight -> Right
             DirectionLeft -> Left
             // For the initial key input of a new composable, both up/down and page up/down will

@@ -414,6 +414,10 @@ android {
     // namespace has to be unique, but default androidx.compose.ui.test package is taken by
     // the androidx.compose.ui:ui-test library
     testNamespace "androidx.compose.ui.tests"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
+    }
 }
 
 // Diagnostics for b/188565660

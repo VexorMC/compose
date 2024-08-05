@@ -16,19 +16,19 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
 /**
  * Platform specific behavior for deselecting text selection in TextField and Text based on
  * special keys, such as the "Back" button on Android.
  *
- * Only return true if selection of should be immediately cancelled in response to this [KeyEvent]
+ * Only return true if selection of should be immediately cancelled in response to this [InternalKeyEvent]
  * as a special case such as the "Back" button on Android. This is not intended for events that
  * would naturally cancel selection due to cursor movement, such as pressing an arrow key.
  *
  * @return true if selection should be cancelled based on this KeyEvent
  */
-internal expect fun KeyEvent.cancelsTextSelection(): Boolean
+internal expect fun InternalKeyEvent.cancelsTextSelection(): Boolean
 
 /**
  * macOS has a character/emoji palette, which has to be ordered by application. This

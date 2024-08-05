@@ -41,7 +41,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequesterModifierNode
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.requestFocus
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyInputModifierNode
 import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
@@ -665,7 +665,7 @@ internal class TextFieldDecoratorModifierNode(
         pointerInputNode.onCancelPointerInput()
     }
 
-    override fun onPreKeyEvent(event: KeyEvent): Boolean {
+    override fun onPreKeyEvent(event: InternalKeyEvent): Boolean {
         return textFieldKeyEventHandler.onPreKeyEvent(
             event = event,
             textFieldState = textFieldState,
@@ -675,7 +675,7 @@ internal class TextFieldDecoratorModifierNode(
         )
     }
 
-    override fun onKeyEvent(event: KeyEvent): Boolean {
+    override fun onKeyEvent(event: InternalKeyEvent): Boolean {
         return textFieldKeyEventHandler.onKeyEvent(
             event = event,
             textFieldState = textFieldState,

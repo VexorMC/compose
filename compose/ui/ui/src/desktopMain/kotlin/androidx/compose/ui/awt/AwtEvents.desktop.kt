@@ -1,6 +1,6 @@
 package androidx.compose.ui.awt
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.internal
 import androidx.compose.ui.input.pointer.PointerEvent
 
@@ -28,6 +28,6 @@ val PointerEvent.awtEventOrNull: java.awt.event.MouseEvent? get() {
  *
  * Always check for null when you want to handle the native event.
  */
-val KeyEvent.awtEventOrNull: java.awt.event.KeyEvent? get() {
+val InternalKeyEvent.awtEventOrNull: java.awt.event.KeyEvent? get() {
     return internal.nativeEvent as? java.awt.event.KeyEvent?
 }

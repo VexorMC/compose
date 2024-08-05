@@ -56,12 +56,12 @@ class HardwareKeyInputTest {
     @Test
     fun onKeyToSoftKeyboardInterceptedEventTriggered() {
         // Arrange.
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setContentWithInitialFocus {
             Box(
                 Modifier
                     .onInterceptKeyBeforeSoftKeyboard {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
                     .focusRequester(initialFocus)
@@ -74,7 +74,7 @@ class HardwareKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(Key.A)
             assertThat(keyEvent.type).isEqualTo(KeyUp)
             assertThat(keyConsumed).isTrue()
@@ -84,12 +84,12 @@ class HardwareKeyInputTest {
     @Test
     fun onPreKeyToSoftKeyboardInterceptedEventTriggered() {
         // Arrange.
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setContentWithInitialFocus {
             Box(
                 Modifier
                     .onPreInterceptKeyBeforeSoftKeyboard {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
                     .focusRequester(initialFocus)
@@ -102,7 +102,7 @@ class HardwareKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(Key.A)
             assertThat(keyEvent.type).isEqualTo(KeyUp)
             assertThat(keyConsumed).isTrue()
@@ -112,17 +112,17 @@ class HardwareKeyInputTest {
     @Test
     fun onKeyEventNotTriggered_ifOnPreKeyEventConsumesEvent() {
         // Arrange.
-        var receivedPreKeyEvent: KeyEvent? = null
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedPreInternalKeyEvent: InternalKeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setContentWithInitialFocus {
             Box(
                 Modifier
                     .onInterceptKeyBeforeSoftKeyboard {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
                     .onPreInterceptKeyBeforeSoftKeyboard {
-                        receivedPreKeyEvent = it
+                        receivedPreInternalKeyEvent = it
                         true
                     }
                     .focusRequester(initialFocus)
@@ -135,12 +135,12 @@ class HardwareKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedPreKeyEvent)
+            val keyEvent = checkNotNull(receivedPreInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(Key.A)
             assertThat(keyEvent.type).isEqualTo(KeyUp)
             assertThat(keyConsumed).isTrue()
 
-            assertThat(receivedKeyEvent).isNull()
+            assertThat(receivedInternalKeyEvent).isNull()
         }
     }
 
@@ -302,15 +302,15 @@ class HardwareKeyInputTest {
     }
 
     /**
-     * The [KeyEvent] is usually created by the system. This function creates an instance of
-     * [KeyEvent] that can be used in tests.
+     * The [InternalKeyEvent] is usually created by the system. This function creates an instance of
+     * [InternalKeyEvent] that can be used in tests.
      */
-    private fun keyEvent(keycode: Int, keyEventType: KeyEventType): KeyEvent {
+    private fun keyEvent(keycode: Int, keyEventType: KeyEventType): InternalKeyEvent {
         val action = when (keyEventType) {
             KeyDown -> ACTION_DOWN
             KeyUp -> ACTION_UP
             else -> error("Unknown key event type")
         }
-        return KeyEvent(AndroidKeyEvent(0L, 0L, action, keycode, 0, 0))
+        return InternalKeyEvent(AndroidKeyEvent(0L, 0L, action, keycode, 0, 0))
     }
 }

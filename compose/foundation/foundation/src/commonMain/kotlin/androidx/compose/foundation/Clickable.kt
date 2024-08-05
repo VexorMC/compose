@@ -33,7 +33,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.requestFocus
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyInputModifierNode
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
@@ -406,14 +406,14 @@ internal expect val TapIndicationDelay: Long
 internal expect fun DelegatableNode.isComposeRootInScrollableContainer(): Boolean
 
 /**
- * Whether the specified [KeyEvent] should trigger a press for a clickable component.
+ * Whether the specified [InternalKeyEvent] should trigger a press for a clickable component.
  */
-internal expect val KeyEvent.isPress: Boolean
+internal expect val InternalKeyEvent.isPress: Boolean
 
 /**
- * Whether the specified [KeyEvent] should trigger a click for a clickable component.
+ * Whether the specified [InternalKeyEvent] should trigger a click for a clickable component.
  */
-internal expect val KeyEvent.isClick: Boolean
+internal expect val InternalKeyEvent.isClick: Boolean
 
 internal fun Modifier.genericClickableWithoutGesture(
     interactionSource: MutableInteractionSource,
@@ -1059,7 +1059,7 @@ internal abstract class AbstractClickableNode(
         pointerInputNode?.onCancelPointerInput()
     }
 
-    final override fun onKeyEvent(event: KeyEvent): Boolean {
+    final override fun onKeyEvent(event: InternalKeyEvent): Boolean {
         // Key events usually require focus, but if a focused child does not handle the KeyEvent,
         // the event can bubble up without this clickable ever being focused, and hence without
         // this being initialized through the focus path
@@ -1096,7 +1096,7 @@ internal abstract class AbstractClickableNode(
         }
     }
 
-    final override fun onPreKeyEvent(event: KeyEvent) = false
+    final override fun onPreKeyEvent(event: InternalKeyEvent) = false
 
     final override fun onFocusEvent(focusState: FocusState) {
         if (focusState.isFocused) {

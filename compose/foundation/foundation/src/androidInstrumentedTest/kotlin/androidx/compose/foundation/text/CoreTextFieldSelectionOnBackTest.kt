@@ -23,7 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.NativeKeyEvent
 import androidx.compose.ui.input.key.key
@@ -56,13 +56,13 @@ class CoreTextFieldSelectionOnBackTest : FocusedWindowTest {
     val rule = createComposeRule()
 
     private val Tag = "textField"
-    private val backKeyDown = KeyEvent(
+    private val backKeyDown = InternalKeyEvent(
         NativeKeyEvent(
             NativeKeyEvent.ACTION_DOWN,
             NativeKeyEvent.KEYCODE_BACK
         )
     )
-    private val backKeyUp = KeyEvent(
+    private val backKeyUp = InternalKeyEvent(
         NativeKeyEvent(
             NativeKeyEvent.ACTION_UP,
             NativeKeyEvent.KEYCODE_BACK

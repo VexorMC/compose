@@ -38,7 +38,7 @@ import androidx.compose.ui.graphics.ReusableGraphicsLayerScope
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.input.InputModeManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.internal.checkPrecondition
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -77,7 +77,6 @@ import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
-import kotlin.test.assertEquals
 import kotlinx.coroutines.asCoroutineDispatcher
 import org.junit.Before
 import org.junit.Test
@@ -4011,7 +4010,7 @@ private class MockOwner(
 
     override fun onInteropViewLayoutChange(view: InteropView) {}
 
-    override fun getFocusDirection(keyEvent: KeyEvent): FocusDirection? {
+    override fun getFocusDirection(internalKeyEvent: InternalKeyEvent): FocusDirection? {
         TODO("Not yet implemented")
     }
 

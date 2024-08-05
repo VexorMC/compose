@@ -31,12 +31,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 
-internal actual fun isCopyKeyEvent(keyEvent: KeyEvent) =
-    platformDefaultKeyMapping.map(keyEvent) == KeyCommand.COPY
+internal actual fun isCopyKeyEvent(internalKeyEvent: InternalKeyEvent) =
+    platformDefaultKeyMapping.map(internalKeyEvent) == KeyCommand.COPY
 
 // We use composed{} to read a local, but don't provide inspector info because the underlying
 // magnifier modifier provides more meaningful inspector info.

@@ -40,7 +40,7 @@ import androidx.compose.ui.graphics.Matrix
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.input.InputMode
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
@@ -252,15 +252,15 @@ internal class RootNodeOwner(
         )
     }
 
-    fun onKeyEvent(keyEvent: KeyEvent): Boolean {
-        return focusOwner.dispatchKeyEvent(keyEvent) || handleFocusKeys(keyEvent)
+    fun onKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean {
+        return focusOwner.dispatchKeyEvent(internalKeyEvent) || handleFocusKeys(internalKeyEvent)
     }
 
-    private fun handleFocusKeys(keyEvent: KeyEvent): Boolean {
+    private fun handleFocusKeys(internalKeyEvent: InternalKeyEvent): Boolean {
         // TODO(b/177931787) : Consider creating a KeyInputManager like we have for FocusManager so
         //  that this common logic can be used by all owners.
-        val focusDirection = owner.getFocusDirection(keyEvent)
-        if (focusDirection == null || keyEvent.type != KeyEventType.KeyDown) return false
+        val focusDirection = owner.getFocusDirection(internalKeyEvent)
+        if (focusDirection == null || internalKeyEvent.type != KeyEventType.KeyDown) return false
 
         platformContext.inputModeManager.requestInputMode(InputMode.Keyboard)
         // Consume the key event if we moved focus.
@@ -465,9 +465,9 @@ internal class RootNodeOwner(
             // TODO dispatch platform re-layout
         }
 
-        override fun getFocusDirection(keyEvent: KeyEvent): FocusDirection? {
-            return when (keyEvent.key) {
-                Key.Tab -> if (keyEvent.isShiftPressed) FocusDirection.Previous else FocusDirection.Next
+        override fun getFocusDirection(internalKeyEvent: InternalKeyEvent): FocusDirection? {
+            return when (internalKeyEvent.key) {
+                Key.Tab -> if (internalKeyEvent.isShiftPressed) FocusDirection.Previous else FocusDirection.Next
                 Key.DirectionCenter -> FocusDirection.Enter
                 Key.Back -> FocusDirection.Exit
                 else -> null
@@ -595,8 +595,8 @@ internal class RootNodeOwner(
         /**
          * Handles the input initiated by tests or accessibility.
          */
-        override fun sendKeyEvent(keyEvent: KeyEvent): Boolean =
-            inputHandler.onKeyEvent(keyEvent)
+        override fun sendKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean =
+            inputHandler.onKeyEvent(internalKeyEvent)
 
         // TODO https://youtrack.jetbrains.com/issue/COMPOSE-1258/Implement-PlatformRootForTest.accessitiblity-functions
 

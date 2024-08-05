@@ -35,7 +35,7 @@ import androidx.compose.ui.graphics.ReusableGraphicsLayerScope
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.input.InputModeManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerIconService
 import androidx.compose.ui.modifier.ModifierLocalManager
 import androidx.compose.ui.platform.AccessibilityManager
@@ -481,7 +481,7 @@ private class MockOwner(
     override fun onLayoutChange(layoutNode: LayoutNode) { layoutChangeCount++ }
     @InternalComposeUiApi
     override fun onInteropViewLayoutChange(view: InteropView) {}
-    override fun getFocusDirection(keyEvent: KeyEvent): FocusDirection? {
+    override fun getFocusDirection(internalKeyEvent: InternalKeyEvent): FocusDirection? {
         TODO("Not yet implemented")
     }
     override fun registerOnLayoutCompletedListener(listener: Owner.OnLayoutCompletedListener) {

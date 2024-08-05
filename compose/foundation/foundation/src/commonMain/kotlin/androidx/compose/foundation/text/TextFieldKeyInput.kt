@@ -23,7 +23,7 @@ import androidx.compose.foundation.text.selection.TextPreparedSelectionState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
@@ -40,10 +40,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 // be used to get "typed character". By this simple function we are introducing common
 // denominator for both systems: if KeyEvent.isTypedEvent then it's safe to use
 // KeyEvent.utf16CodePoint
-internal expect val KeyEvent.isTypedEvent: Boolean
+internal expect val InternalKeyEvent.isTypedEvent: Boolean
 
 /**
- * It handles [KeyEvent]s and either process them as typed events or maps to
+ * It handles [InternalKeyEvent]s and either process them as typed events or maps to
  * [KeyCommand] via [KeyMapping]. [KeyCommand] then is executed
  * using utility class [TextFieldPreparedSelection]
  */
@@ -75,7 +75,7 @@ internal class TextFieldKeyInput(
         listOf(this).apply()
     }
 
-    private fun typedCommand(event: KeyEvent): CommitTextCommand? {
+    private fun typedCommand(event: InternalKeyEvent): CommitTextCommand? {
         if (!event.isTypedEvent) {
             return null
         }
@@ -85,7 +85,7 @@ internal class TextFieldKeyInput(
         return CommitTextCommand(text, 1)
     }
 
-    fun process(event: KeyEvent): Boolean {
+    fun process(event: InternalKeyEvent): Boolean {
         typedCommand(event)?.let {
             return if (editable) {
                 it.apply()

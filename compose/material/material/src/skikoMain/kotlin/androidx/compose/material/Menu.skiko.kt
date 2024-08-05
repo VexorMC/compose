@@ -19,11 +19,7 @@ package androidx.compose.material
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.interaction.Interaction
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,7 +33,7 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.input.InputMode
 import androidx.compose.ui.input.InputModeManager
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
@@ -47,7 +43,6 @@ import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import kotlin.jvm.JvmName
 
 /**
  * <a href="https://material.io/components/menus#dropdown-menu" class="external" target="_blank">Material Design dropdown menu</a>.
@@ -141,11 +136,11 @@ actual fun DropdownMenu(
 
 @OptIn(ExperimentalComposeUiApi::class)
 internal fun handlePopupOnKeyEvent(
-    keyEvent: KeyEvent,
+    internalKeyEvent: InternalKeyEvent,
     focusManager: FocusManager?,
     inputModeManager: InputModeManager?
-): Boolean = if (keyEvent.type == KeyEventType.KeyDown) {
-    when (keyEvent.key) {
+): Boolean = if (internalKeyEvent.type == KeyEventType.KeyDown) {
+    when (internalKeyEvent.key) {
         Key.DirectionDown -> {
             inputModeManager?.requestInputMode(InputMode.Keyboard)
             focusManager?.moveFocus(FocusDirection.Next)

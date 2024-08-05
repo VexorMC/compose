@@ -16,7 +16,7 @@
 
 package androidx.compose.foundation.text.input.internal
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
 /**
  * Factory function to create a platform specific [TextFieldKeyEventHandler].
@@ -28,5 +28,5 @@ internal actual fun createTextFieldKeyEventHandler() = object : TextFieldKeyEven
 /**
  * Returns whether this key event is created by the software keyboard.
  */
-internal actual val KeyEvent.isFromSoftKeyboard: Boolean
+internal actual val InternalKeyEvent.isFromSoftKeyboard: Boolean
     get() = false

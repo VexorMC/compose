@@ -22,7 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.asComposeCanvas
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerButtons
 import androidx.compose.ui.input.pointer.PointerEventType
@@ -315,10 +315,10 @@ class ImageComposeScene @ExperimentalComposeUiApi constructor(
     )
 
     /**
-     * Send [KeyEvent] to the content.
+     * Send [InternalKeyEvent] to the content.
      * @return true if the event was consumed by the content
      */
-    fun sendKeyEvent(event: KeyEvent): Boolean = scene.sendKeyEvent(event)
+    fun sendKeyEvent(event: InternalKeyEvent): Boolean = scene.sendKeyEvent(event)
 }
 
 private fun Constraints.toIntSize() =

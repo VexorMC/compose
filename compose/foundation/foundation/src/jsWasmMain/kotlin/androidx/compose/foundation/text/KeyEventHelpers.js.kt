@@ -16,9 +16,9 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
-internal actual fun KeyEvent.cancelsTextSelection(): Boolean = false
+internal actual fun InternalKeyEvent.cancelsTextSelection(): Boolean = false
 
 internal actual fun showCharacterPalette() {
     // There is no browser API to make such a system call neither directly nor indirectly:

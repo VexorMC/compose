@@ -16,8 +16,8 @@
 
 package androidx.compose.foundation.text
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 
-internal actual val KeyEvent.isTypedEvent: Boolean
+internal actual val InternalKeyEvent.isTypedEvent: Boolean
     get() = nativeKeyEvent.action == android.view.KeyEvent.ACTION_DOWN &&
         !Character.isISOControl(nativeKeyEvent.unicodeChar)

@@ -39,7 +39,7 @@ import org.robolectric.annotation.Config
  */
 @RunWith(AndroidJUnit4::class)
 @Config(minSdk = RobolectricMinSdk)
-class KeyEventsTest : InputDispatcherTest() {
+class InternalKeyEventsTest : InputDispatcherTest() {
 
     companion object {
         private const val keyDown = KeyEvent.ACTION_DOWN

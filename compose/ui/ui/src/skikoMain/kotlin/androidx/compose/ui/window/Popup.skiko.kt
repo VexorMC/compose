@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
@@ -161,7 +161,7 @@ actual class PopupProperties @ExperimentalComposeUiApi constructor(
  * @param focusable Indicates if the popup can grab the focus.
  * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -182,8 +182,8 @@ fun Popup(
     offset: IntOffset = IntOffset(0, 0),
     focusable: Boolean = false,
     onDismissRequest: (() -> Unit)? = null,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     content: @Composable () -> Unit
 ) = Popup(
     alignment = alignment,
@@ -211,7 +211,7 @@ fun Popup(
  * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param focusable Indicates if the popup can grab the focus.
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -230,8 +230,8 @@ fun Popup(
 fun Popup(
     popupPositionProvider: PopupPositionProvider,
     onDismissRequest: (() -> Unit)? = null,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     focusable: Boolean = false,
     content: @Composable () -> Unit
 ) = Popup(
@@ -331,7 +331,7 @@ actual fun Popup(
  * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param properties [PopupProperties] for further customization of this popup's behavior.
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -346,8 +346,8 @@ fun Popup(
     offset: IntOffset = IntOffset(0, 0),
     onDismissRequest: (() -> Unit)? = null,
     properties: PopupProperties = PopupProperties(),
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean)? = null,
-    onKeyEvent: ((KeyEvent) -> Boolean)? = null,
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
+    onKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
     content: @Composable () -> Unit
 ) {
     val popupPositioner = remember(alignment, offset) {
@@ -374,7 +374,7 @@ fun Popup(
  * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param properties [PopupProperties] for further customization of this popup's behavior.
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -388,8 +388,8 @@ fun Popup(
     popupPositionProvider: PopupPositionProvider,
     onDismissRequest: (() -> Unit)? = null,
     properties: PopupProperties = PopupProperties(),
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean)? = null,
-    onKeyEvent: ((KeyEvent) -> Boolean)? = null,
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
+    onKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
     content: @Composable () -> Unit
 ) {
     val currentOnDismissRequest by rememberUpdatedState(onDismissRequest)
@@ -397,7 +397,7 @@ fun Popup(
 
     val overriddenOnKeyEvent = if (properties.dismissOnBackPress && onDismissRequest != null) {
         // No need to remember this lambda, as it doesn't capture any values that can change.
-        { event: KeyEvent ->
+        { event: InternalKeyEvent ->
             val consumed = currentOnKeyEvent?.invoke(event) ?: false
             if (!consumed && event.isDismissRequest()) {
                 currentOnDismissRequest?.invoke()
@@ -438,8 +438,8 @@ private fun PopupLayout(
     popupPositionProvider: PopupPositionProvider,
     properties: PopupProperties,
     modifier: Modifier,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean)? = null,
-    onKeyEvent: ((KeyEvent) -> Boolean)? = null,
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
+    onKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
     onOutsidePointerEvent: ((eventType: PointerEventType, button: PointerButton?) -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
@@ -542,6 +542,6 @@ private fun clipPosition(position: IntOffset, contentSize: IntSize, containerSiz
         } else 0
     )
 
-private fun KeyEvent.isDismissRequest() =
+private fun InternalKeyEvent.isDismissRequest() =
     type == KeyEventType.KeyDown && key == Key.Escape
 

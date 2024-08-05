@@ -18,7 +18,7 @@ package androidx.compose.ui.focus
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 
 /**
@@ -132,19 +132,19 @@ internal interface FocusOwner : FocusManager {
      * When an embedded subview has focus, we call onPreviewKeyEvents for all the parents, and then
      * invoke onFocusedItem before we call onKeyEvent on all the parents.
      *
-     * @param keyEvent the key event to be dispatched
+     * @param internalKeyEvent the key event to be dispatched
      *
      * @param onFocusedItem the block that is run after calling onPreviewKeyEvents on all the
      * parents. Returning true will consume the event and prevent the event from propagating
      * to the onKeyEvent modifiers on parents. This is used to dispatch key events to embedded
      * sub-views.
      */
-    fun dispatchKeyEvent(keyEvent: KeyEvent, onFocusedItem: () -> Boolean = { false }): Boolean
+    fun dispatchKeyEvent(internalKeyEvent: InternalKeyEvent, onFocusedItem: () -> Boolean = { false }): Boolean
 
     /**
      * Dispatches an intercepted soft keyboard key event through the compose hierarchy.
      */
-    fun dispatchInterceptedSoftKeyboardEvent(keyEvent: KeyEvent): Boolean
+    fun dispatchInterceptedSoftKeyboardEvent(internalKeyEvent: InternalKeyEvent): Boolean
 
     /**
      * Dispatches a rotary scroll event through the compose hierarchy.

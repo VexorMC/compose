@@ -27,7 +27,7 @@ import androidx.compose.ui.awt.AwtEventFilter
 import androidx.compose.ui.awt.AwtEventListener
 import androidx.compose.ui.awt.AwtEventListeners
 import androidx.compose.ui.awt.RenderSettings
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.platform.LocalInternalViewModelStoreOwner
 import androidx.compose.ui.platform.PlatformContext
 import androidx.compose.ui.platform.PlatformWindowContext
@@ -318,8 +318,8 @@ internal class ComposeContainer(
     }
 
     fun setKeyEventListeners(
-        onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
-        onKeyEvent: (KeyEvent) -> Boolean = { false },
+        onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { false },
+        onKeyEvent: (InternalKeyEvent) -> Boolean = { false },
     ) {
         mediator.setKeyEventListeners(onPreviewKeyEvent, onKeyEvent)
     }

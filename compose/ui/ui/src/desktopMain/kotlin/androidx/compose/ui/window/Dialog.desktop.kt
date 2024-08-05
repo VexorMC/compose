@@ -25,7 +25,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.awt.ComposeDialog
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.scene.LocalComposeScene
 import androidx.compose.ui.scene.platformContext
@@ -62,8 +62,8 @@ fun Dialog(
     resizable: Boolean = true,
     enabled: Boolean = true,
     focusable: Boolean = true,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     content: @Composable DialogWindowScope.() -> Unit
 ) = DialogWindow(
     onCloseRequest,
@@ -98,8 +98,8 @@ fun DialogWindow(
     resizable: Boolean = true,
     enabled: Boolean = true,
     focusable: Boolean = true,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     content: @Composable DialogWindowScope.() -> Unit
 ) {
     DialogWindow(
@@ -169,7 +169,7 @@ fun DialogWindow(
  * @param focusable Can dialog receive focus
  * @param alwaysOnTop Should the dialog always be on top of another windows and dialogs
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -191,8 +191,8 @@ fun DialogWindow(
     enabled: Boolean = true,
     focusable: Boolean = true,
     alwaysOnTop: Boolean = false,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     content: @Composable DialogWindowScope.() -> Unit
 ) {
     val owner = LocalWindow.current
@@ -310,8 +310,8 @@ fun DialogWindow(
 @Composable
 fun Dialog(
     visible: Boolean = true,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     create: () -> ComposeDialog,
     dispose: (ComposeDialog) -> Unit,
     update: (ComposeDialog) -> Unit = {},
@@ -355,7 +355,7 @@ fun Dialog(
  * - native resources will not be released. They will be released only when [DialogWindow]
  * will leave the composition.
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -373,8 +373,8 @@ fun Dialog(
 @Composable
 fun DialogWindow(
     visible: Boolean = true,
-    onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-    onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+    onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+    onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
     create: () -> ComposeDialog,
     dispose: (ComposeDialog) -> Unit,
     update: (ComposeDialog) -> Unit = {},

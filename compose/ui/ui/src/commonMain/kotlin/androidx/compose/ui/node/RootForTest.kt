@@ -19,7 +19,7 @@
 package androidx.compose.ui.node
 
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.semantics.SemanticsOwner
 import androidx.compose.ui.text.input.TextInputService
 import androidx.compose.ui.unit.Density
@@ -46,11 +46,11 @@ interface RootForTest {
     val textInputService: TextInputService
 
     /**
-     * Send this [KeyEvent] to the focused component in this [Owner].
+     * Send this [InternalKeyEvent] to the focused component in this [Owner].
      *
      * @return true if the event was consumed. False otherwise.
      */
-    fun sendKeyEvent(keyEvent: KeyEvent): Boolean
+    fun sendKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean
 
     /**
      * Force accessibility to be enabled for testing.

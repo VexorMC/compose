@@ -16,7 +16,7 @@
 
 package androidx.compose.ui.dom
 
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.internal
 import org.w3c.dom.events.KeyboardEvent
 
@@ -29,5 +29,5 @@ import org.w3c.dom.events.KeyboardEvent
  * - there is no native event (in tests, for example, or when Compose sends a synthetic event)
  *
  */
-val KeyEvent.domEventOrNull: KeyboardEvent?
+val InternalKeyEvent.domEventOrNull: KeyboardEvent?
     get() = internal.nativeEvent as? KeyboardEvent?

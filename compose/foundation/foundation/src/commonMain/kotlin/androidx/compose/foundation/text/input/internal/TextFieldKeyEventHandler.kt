@@ -28,7 +28,7 @@ import androidx.compose.foundation.text.isTypedEvent
 import androidx.compose.foundation.text.platformDefaultKeyMapping
 import androidx.compose.foundation.text.showCharacterPalette
 import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.SoftwareKeyboardController
@@ -42,7 +42,7 @@ internal expect fun createTextFieldKeyEventHandler(): TextFieldKeyEventHandler
 /**
  * Returns whether this key event is created by the software keyboard.
  */
-internal expect val KeyEvent.isFromSoftKeyboard: Boolean
+internal expect val InternalKeyEvent.isFromSoftKeyboard: Boolean
 
 /**
  * Handles KeyEvents coming to a BasicTextField. This is mostly to support hardware keyboard but
@@ -57,7 +57,7 @@ internal abstract class TextFieldKeyEventHandler {
     private val keyMapping = platformDefaultKeyMapping
 
     open fun onPreKeyEvent(
-        event: KeyEvent,
+        event: InternalKeyEvent,
         textFieldState: TransformedTextFieldState,
         textFieldSelectionState: TextFieldSelectionState,
         focusManager: FocusManager,
@@ -73,7 +73,7 @@ internal abstract class TextFieldKeyEventHandler {
     }
 
     open fun onKeyEvent(
-        event: KeyEvent,
+        event: InternalKeyEvent,
         textFieldState: TransformedTextFieldState,
         textLayoutState: TextLayoutState,
         textFieldSelectionState: TextFieldSelectionState,

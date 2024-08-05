@@ -27,9 +27,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.scene.BaseComposeScene
 import androidx.compose.ui.scene.LocalComposeScene
 import androidx.compose.ui.scene.platformContext
 import androidx.compose.ui.unit.DpSize
@@ -110,7 +109,7 @@ import javax.swing.JMenuBar
  * @param focusable Can window receive focus
  * @param alwaysOnTop Should window always be on top of another windows
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -132,8 +131,8 @@ fun Window(
     enabled: Boolean = true,
     focusable: Boolean = true,
     alwaysOnTop: Boolean = false,
-    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
-    onKeyEvent: (KeyEvent) -> Boolean = { false },
+    onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { false },
+    onKeyEvent: (InternalKeyEvent) -> Boolean = { false },
     content: @Composable FrameWindowScope.() -> Unit
 ) {
     val currentState by rememberUpdatedState(state)
@@ -302,7 +301,7 @@ fun Window(
  * @param focusable Can window receive focus
  * @param alwaysOnTop Should window always be on top of another windows
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -326,8 +325,8 @@ fun singleWindowApplication(
     enabled: Boolean = true,
     focusable: Boolean = true,
     alwaysOnTop: Boolean = false,
-    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
-    onKeyEvent: (KeyEvent) -> Boolean = { false },
+    onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { false },
+    onKeyEvent: (InternalKeyEvent) -> Boolean = { false },
     exitProcessOnExit: Boolean = true,
     content: @Composable FrameWindowScope.() -> Unit
 ) = application(exitProcessOnExit = exitProcessOnExit) {
@@ -372,7 +371,7 @@ fun singleWindowApplication(
  * - native resources will not be released. They will be released only when [Window]
  * will leave the composition.
  * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
- * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+ * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
  * Return true to stop propagation of this event. If you return false, the key event will be
  * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
  * it will be sent back up to the root using the onKeyEvent callback.
@@ -390,8 +389,8 @@ fun singleWindowApplication(
 @Composable
 fun Window(
     visible: Boolean = true,
-    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
-    onKeyEvent: (KeyEvent) -> Boolean = { false },
+    onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { false },
+    onKeyEvent: (InternalKeyEvent) -> Boolean = { false },
     create: () -> ComposeWindow,
     dispose: (ComposeWindow) -> Unit,
     update: (ComposeWindow) -> Unit = {},

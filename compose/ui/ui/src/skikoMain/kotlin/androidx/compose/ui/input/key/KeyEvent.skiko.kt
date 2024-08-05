@@ -29,39 +29,36 @@ import androidx.compose.ui.input.pointer.isShiftPressed
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
-actual typealias NativeKeyEvent = Any
-
-internal data class InternalKeyEvent(
+actual data class NativeKeyEvent(
     val key: Key,
     val type: KeyEventType,
     val codePoint: Int,
     val modifiers: PointerKeyboardModifiers, // Reuse pointer modifiers
-
     val nativeEvent: Any? = null
 )
 
-internal val KeyEvent.internal: InternalKeyEvent
-    get() = nativeKeyEvent as InternalKeyEvent
+internal val InternalKeyEvent.internal: NativeKeyEvent
+    get() = nativeKeyEvent as NativeKeyEvent
 
-actual val KeyEvent.key: Key
+actual val InternalKeyEvent.key: Key
     get() = internal.key
 
-actual val KeyEvent.utf16CodePoint: Int
+actual val InternalKeyEvent.utf16CodePoint: Int
     get() = internal.codePoint
 
-actual val KeyEvent.type: KeyEventType
+actual val InternalKeyEvent.type: KeyEventType
     get() = internal.type
 
-actual val KeyEvent.isAltPressed: Boolean
+actual val InternalKeyEvent.isAltPressed: Boolean
     get() = internal.modifiers.isAltPressed || internal.modifiers.isAltGraphPressed
 
-actual val KeyEvent.isCtrlPressed: Boolean
+actual val InternalKeyEvent.isCtrlPressed: Boolean
     get() = internal.modifiers.isCtrlPressed
 
-actual val KeyEvent.isMetaPressed: Boolean
+actual val InternalKeyEvent.isMetaPressed: Boolean
     get() = internal.modifiers.isMetaPressed
 
-actual val KeyEvent.isShiftPressed: Boolean
+actual val InternalKeyEvent.isShiftPressed: Boolean
     get() = internal.modifiers.isShiftPressed
 
 @InternalComposeUiApi
@@ -74,8 +71,8 @@ fun KeyEvent(
     isAltPressed: Boolean = false,
     isShiftPressed: Boolean = false,
     nativeEvent: Any? = null
-) = KeyEvent(
-    nativeKeyEvent = InternalKeyEvent(
+) = InternalKeyEvent(
+    nativeKeyEvent = NativeKeyEvent(
         key = key,
         type = type,
         codePoint = codePoint,
@@ -89,14 +86,14 @@ fun KeyEvent(
     )
 )
 
-internal fun KeyEvent.copy(
+internal fun InternalKeyEvent.copy(
     key: Key = this.internal.key,
     type: KeyEventType = this.internal.type,
     codePoint: Int = this.internal.codePoint,
     modifiers: PointerKeyboardModifiers = this.internal.modifiers,
     nativeEvent: Any? = this.internal.nativeEvent
-) = KeyEvent(
-    nativeKeyEvent = InternalKeyEvent(
+) = InternalKeyEvent(
+    nativeKeyEvent = NativeKeyEvent(
         key = key,
         type = type,
         codePoint = codePoint,

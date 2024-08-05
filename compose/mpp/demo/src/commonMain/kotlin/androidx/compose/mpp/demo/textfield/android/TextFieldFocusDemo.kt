@@ -32,7 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
@@ -75,7 +75,7 @@ private val keyIndicatorInstructionText =
 fun TextFieldFocusDemo() {
     val keys = remember { mutableStateListOf<KeyState>() }
 
-    val onKeyDown: (KeyEvent) -> Unit = { event ->
+    val onKeyDown: (InternalKeyEvent) -> Unit = { event ->
         if (keys.none { /*it.keyEvent.keyCode == event.keyCode &&*/ !it.isUp }) {
             keys.add(0, KeyState(event))
             if (keys.size > 10) {
@@ -84,7 +84,7 @@ fun TextFieldFocusDemo() {
         }
     }
 
-    val onKeyUp: (KeyEvent) -> Unit = { event ->
+    val onKeyUp: (InternalKeyEvent) -> Unit = { event ->
         keys
             .indexOfFirst { true /*it.keyEvent.keyCode == event.keyCode*/ }
             .takeUnless { it == -1 }
@@ -172,7 +172,7 @@ private fun DemoTextField(
 }
 
 private data class KeyState(
-    val keyEvent: KeyEvent,
+    val internalKeyEvent: InternalKeyEvent,
     val downTime: Long = currentNanoTime(),
     val isUp: Boolean = false
 )

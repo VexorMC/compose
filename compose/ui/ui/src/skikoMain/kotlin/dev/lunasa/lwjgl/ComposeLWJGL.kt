@@ -16,6 +16,8 @@
 
 package dev.lunasa.lwjgl
 
+import kotlinx.coroutines.CoroutineDispatcher
+
 /**
  * Provides various flags to assist in configuring Compose to work with LWJGL.
  */
@@ -24,4 +26,9 @@ object ComposeLWJGL {
      * If set to true, enables the [androidx.compose.ui.platform.GlobalSnapshotManager.ensureStarted] call in [androidx.compose.ui.scene.BaseComposeScene]
      */
     var enableGlobalSnapshotManager = false
+
+    /**
+     * The coroutine dispatcher that will be used for the Global Snapshot Manager. If set to null, defaults to the AWT Event Thread (MainUIDispatcher)
+     */
+    var globalSnapshotManagerDispatcher: CoroutineDispatcher? = null
 }

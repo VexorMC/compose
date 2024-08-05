@@ -20,7 +20,7 @@ import org.jetbrains.skia.Canvas as SkCanvas
 import androidx.compose.runtime.*
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.asComposeCanvas
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.node.LayoutNode
 import androidx.compose.ui.node.RootForTest
@@ -331,10 +331,10 @@ class ComposeScene internal constructor(
     }
 
     /**
-     * Send [KeyEvent] to the content.
+     * Send [InternalKeyEvent] to the content.
      * @return true if the event was consumed by the content
      */
-    fun sendKeyEvent(event: KeyEvent): Boolean {
+    fun sendKeyEvent(event: InternalKeyEvent): Boolean {
         return replacement.sendKeyEvent(event)
     }
 }

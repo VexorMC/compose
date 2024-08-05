@@ -17,7 +17,7 @@
 package androidx.compose.foundation.text
 
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
@@ -34,7 +34,7 @@ internal fun createPlatformDefaultKeyMapping(platform: OS): KeyMapping {
     return object : KeyMapping {
         private val clipboardKeys = setOf(Key.C, Key.V, Key.X)
 
-        override fun map(event: KeyEvent): KeyCommand? {
+        override fun map(event: InternalKeyEvent): KeyCommand? {
             val isCtrlOrCmd = if (hostOs.isMacOS) event.isMetaPressed else event.isCtrlPressed
             if (isCtrlOrCmd && event.key in clipboardKeys) {
                 // we let a browser dispatch a clipboard event

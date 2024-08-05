@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalContext
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.semantics.dialog
 import androidx.compose.ui.semantics.semantics
@@ -190,7 +190,7 @@ class ComposeDialog : JDialog {
      * Composes the given composable into the ComposeDialog.
      *
      * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
-     * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+     * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
      * Return true to stop propagation of this event. If you return false, the key event will be
      * sent to this [onPreviewKeyEvent]'s child. If none of the children consume the event,
      * it will be sent back up to the root using the onKeyEvent callback.
@@ -201,8 +201,8 @@ class ComposeDialog : JDialog {
      */
     @ExperimentalComposeUiApi
     fun setContent(
-        onPreviewKeyEvent: ((KeyEvent) -> Boolean) = { false },
-        onKeyEvent: ((KeyEvent) -> Boolean) = { false },
+        onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
+        onKeyEvent: ((InternalKeyEvent) -> Boolean) = { false },
         content: @Composable DialogWindowScope.() -> Unit
     ) {
         val scope = object : DialogWindowScope {

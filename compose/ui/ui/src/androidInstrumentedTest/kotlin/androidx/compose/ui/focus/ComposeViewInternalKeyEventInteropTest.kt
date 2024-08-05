@@ -40,7 +40,7 @@ import org.junit.runner.RunWith
 @MediumTest
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalComposeUiApi::class)
-class ComposeViewKeyEventInteropTest {
+class ComposeViewInternalKeyEventInteropTest {
     @get:Rule
     val rule = createAndroidComposeRule<TestActivity>()
 

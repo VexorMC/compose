@@ -17,7 +17,7 @@
 package androidx.compose.foundation
 
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyDown
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyUp
 import androidx.compose.ui.input.key.key
@@ -30,8 +30,8 @@ internal actual fun DelegatableNode
     return false
 }
 
-internal actual val KeyEvent.isPress: Boolean
+internal actual val InternalKeyEvent.isPress: Boolean
     get() = type == KeyDown && (key == Key.Enter || key == Key.NumPadEnter || key == Key.Spacebar)
 
-internal actual val KeyEvent.isClick: Boolean
+internal actual val InternalKeyEvent.isClick: Boolean
     get() = type == KeyUp && (key == Key.Enter || key == Key.NumPadEnter || key == Key.Spacebar)

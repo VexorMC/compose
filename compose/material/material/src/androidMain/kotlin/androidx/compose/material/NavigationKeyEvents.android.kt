@@ -24,30 +24,30 @@ import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.KeyEvent.KEYCODE_DPAD_DOWN
 import android.view.KeyEvent.KEYCODE_DPAD_LEFT
 import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.nativeKeyCode
 
-internal actual val KeyEvent.isDirectionUp: Boolean
+internal actual val InternalKeyEvent.isDirectionUp: Boolean
     get() = key.nativeKeyCode == KEYCODE_DPAD_UP
 
-internal actual val KeyEvent.isDirectionDown: Boolean
+internal actual val InternalKeyEvent.isDirectionDown: Boolean
     get() = key.nativeKeyCode == KEYCODE_DPAD_DOWN
 
-internal actual val KeyEvent.isDirectionRight: Boolean
+internal actual val InternalKeyEvent.isDirectionRight: Boolean
     get() = key.nativeKeyCode == KEYCODE_DPAD_RIGHT
 
-internal actual val KeyEvent.isDirectionLeft: Boolean
+internal actual val InternalKeyEvent.isDirectionLeft: Boolean
     get() = key.nativeKeyCode == KEYCODE_DPAD_LEFT
 
-internal actual val KeyEvent.isHome: Boolean
+internal actual val InternalKeyEvent.isHome: Boolean
     get() = key.nativeKeyCode == KEYCODE_MOVE_HOME
 
-internal actual val KeyEvent.isMoveEnd: Boolean
+internal actual val InternalKeyEvent.isMoveEnd: Boolean
     get() = key.nativeKeyCode == KEYCODE_MOVE_END
 
-internal actual val KeyEvent.isPgUp: Boolean
+internal actual val InternalKeyEvent.isPgUp: Boolean
     get() = key.nativeKeyCode == KEYCODE_PAGE_UP
 
-internal actual val KeyEvent.isPgDn: Boolean
+internal actual val InternalKeyEvent.isPgDn: Boolean
     get() = key.nativeKeyCode == KEYCODE_PAGE_DOWN

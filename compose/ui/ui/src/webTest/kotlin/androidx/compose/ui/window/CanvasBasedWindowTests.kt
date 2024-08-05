@@ -32,7 +32,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.onPreviewKeyEvent
@@ -157,7 +157,7 @@ class CanvasBasedWindowTests {
 
         val fr = FocusRequester()
         val textValue = mutableStateOf("")
-        var lastKeyEvent: KeyEvent? = null
+        var lastInternalKeyEvent: InternalKeyEvent? = null
         var stopPropagation = true
 
         CanvasBasedWindow(canvasElementId = canvasId) {
@@ -165,7 +165,7 @@ class CanvasBasedWindowTests {
                 value = textValue.value,
                 onValueChange = { textValue.value = it },
                 modifier = Modifier.fillMaxSize().focusRequester(fr).onPreviewKeyEvent {
-                    lastKeyEvent = it
+                    lastInternalKeyEvent = it
                     return@onPreviewKeyEvent stopPropagation
                 }
             )
@@ -175,7 +175,7 @@ class CanvasBasedWindowTests {
         }
 
         canvasElement.dispatchEvent(keyDownEvent("t"))
-        assertEquals(Key.T, lastKeyEvent!!.key)
+        assertEquals(Key.T, lastInternalKeyEvent!!.key)
         assertEquals("", textValue.value)
 
         stopPropagation = false
@@ -184,7 +184,7 @@ class CanvasBasedWindowTests {
         canvasElement.dispatchEvent(keyDownEvent("s"))
         canvasElement.dispatchEvent(keyDownEvent("t"))
         canvasElement.dispatchEvent(keyDownEvent("x"))
-        assertEquals(Key.X, lastKeyEvent!!.key)
+        assertEquals(Key.X, lastInternalKeyEvent!!.key)
         assertEquals("testx", textValue.value)
     }
 }

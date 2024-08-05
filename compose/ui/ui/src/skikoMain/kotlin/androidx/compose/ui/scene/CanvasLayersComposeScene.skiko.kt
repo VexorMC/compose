@@ -32,7 +32,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.PointerInputEvent
@@ -239,8 +239,8 @@ private class CanvasLayersComposeSceneImpl(
         }
     }
 
-    override fun processKeyEvent(keyEvent: KeyEvent): Boolean =
-        focusedLayer?.onKeyEvent(keyEvent) ?: mainOwner.onKeyEvent(keyEvent)
+    override fun processKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean =
+        focusedLayer?.onKeyEvent(internalKeyEvent) ?: mainOwner.onKeyEvent(internalKeyEvent)
 
     override fun measureAndLayout() {
         forEachOwner { it.measureAndLayout() }
@@ -520,8 +520,8 @@ private class CanvasLayersComposeSceneImpl(
                 }
             } ?: Modifier
 
-        private var onPreviewKeyEvent: ((KeyEvent) -> Boolean)? = null
-        private var onKeyEvent: ((KeyEvent) -> Boolean)? = null
+        private var onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)? = null
+        private var onKeyEvent: ((InternalKeyEvent) -> Boolean)? = null
 
         init {
             attachLayer(this)
@@ -537,17 +537,17 @@ private class CanvasLayersComposeSceneImpl(
         }
 
         override fun setKeyEventListener(
-            onPreviewKeyEvent: ((KeyEvent) -> Boolean)?,
-            onKeyEvent: ((KeyEvent) -> Boolean)?,
+            onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)?,
+            onKeyEvent: ((InternalKeyEvent) -> Boolean)?,
         ) {
             this.onPreviewKeyEvent = onPreviewKeyEvent
             this.onKeyEvent = onKeyEvent
         }
 
-        fun onKeyEvent(keyEvent: KeyEvent): Boolean {
-            return onPreviewKeyEvent?.invoke(keyEvent) == true ||
-                owner.onKeyEvent(keyEvent) ||
-                onKeyEvent?.invoke(keyEvent) == true
+        fun onKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean {
+            return onPreviewKeyEvent?.invoke(internalKeyEvent) == true ||
+                owner.onKeyEvent(internalKeyEvent) ||
+                onKeyEvent?.invoke(internalKeyEvent) == true
         }
 
         override fun setOutsidePointerEventListener(

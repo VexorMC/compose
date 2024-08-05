@@ -62,7 +62,7 @@ class AndroidProcessKeyInputTest(private val keyEventActions: List<Int>) {
     fun onKeyEvent_triggered() {
         // Arrange.
         lateinit var ownerView: View
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         val focusRequester = FocusRequester()
         rule.setFocusableContent {
             ownerView = LocalView.current
@@ -71,7 +71,7 @@ class AndroidProcessKeyInputTest(private val keyEventActions: List<Int>) {
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -94,7 +94,7 @@ class AndroidProcessKeyInputTest(private val keyEventActions: List<Int>) {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.type).isEqualTo(
                 when (keyEventActions.last()) {
                     ActionUp -> KeyUp

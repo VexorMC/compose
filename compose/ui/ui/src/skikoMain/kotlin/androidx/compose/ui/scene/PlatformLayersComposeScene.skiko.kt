@@ -21,11 +21,10 @@ import androidx.compose.runtime.Composition
 import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.InternalComposeUiApi
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Canvas
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerInputEvent
 import androidx.compose.ui.node.LayoutNode
 import androidx.compose.ui.node.RootNodeOwner
@@ -167,8 +166,8 @@ private class PlatformLayersComposeSceneImpl(
     override fun processPointerInputEvent(event: PointerInputEvent) =
         mainOwner.onPointerInput(event)
 
-    override fun processKeyEvent(keyEvent: KeyEvent): Boolean =
-        mainOwner.onKeyEvent(keyEvent)
+    override fun processKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean =
+        mainOwner.onKeyEvent(internalKeyEvent)
 
     override fun measureAndLayout() {
         mainOwner.measureAndLayout()

@@ -25,11 +25,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 
-internal actual fun isCopyKeyEvent(keyEvent: KeyEvent): Boolean =
+internal actual fun isCopyKeyEvent(internalKeyEvent: InternalKeyEvent): Boolean =
     false //TODO implement copy key event for iPad
 
 internal actual fun Modifier.selectionMagnifier(manager: SelectionManager): Modifier {

@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.InputMode
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.toComposeEvent
 import androidx.compose.ui.input.pointer.HistoricalChange
@@ -655,18 +656,18 @@ internal class ComposeSceneMediator(
         size.height
     }
 
-    private var _onPreviewKeyEvent: (KeyEvent) -> Boolean = { false }
-    private var _onKeyEvent: (KeyEvent) -> Boolean = { false }
+    private var _onPreviewKeyEvent: (InternalKeyEvent) -> Boolean = { false }
+    private var _onKeyEvent: (InternalKeyEvent) -> Boolean = { false }
     fun setKeyEventListener(
-        onPreviewKeyEvent: ((KeyEvent) -> Boolean)?,
-        onKeyEvent: ((KeyEvent) -> Boolean)?
+        onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)?,
+        onKeyEvent: ((InternalKeyEvent) -> Boolean)?
     ) {
         this._onPreviewKeyEvent = onPreviewKeyEvent ?: { false }
         this._onKeyEvent = onKeyEvent ?: { false }
     }
 
     /**
-     * Converts [UIPress] objects to [KeyEvent] and dispatches them to the appropriate handlers.
+     * Converts [UIPress] objects to [InternalKeyEvent] and dispatches them to the appropriate handlers.
      * @param presses a [Set] of [UIPress] objects. Erasure happens due to K/N not supporting Obj-C lightweight generics.
      */
     private fun onKeyboardPresses(presses: Set<*>) {
@@ -676,11 +677,11 @@ internal class ComposeSceneMediator(
         }
     }
 
-    private fun onKeyboardEvent(keyEvent: KeyEvent): Boolean =
-        uiKitTextInputService.onPreviewKeyEvent(keyEvent) // TODO: fix redundant call
-            || _onPreviewKeyEvent(keyEvent)
-            || scene.sendKeyEvent(keyEvent)
-            || _onKeyEvent(keyEvent)
+    private fun onKeyboardEvent(internalKeyEvent: InternalKeyEvent): Boolean =
+        uiKitTextInputService.onPreviewKeyEvent(internalKeyEvent) // TODO: fix redundant call
+            || _onPreviewKeyEvent(internalKeyEvent)
+            || scene.sendKeyEvent(internalKeyEvent)
+            || _onKeyEvent(internalKeyEvent)
 
     @OptIn(ExperimentalComposeApi::class)
     private var viewForKeyboardOffsetTransform = if (configuration.platformLayers) {

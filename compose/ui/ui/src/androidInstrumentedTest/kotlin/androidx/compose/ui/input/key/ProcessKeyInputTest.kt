@@ -51,11 +51,11 @@ class ProcessKeyInputTest {
     @Test
     fun noFocusTarget_doesNotTriggerOnKeyEvent() {
         // Arrange.
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 Modifier.onKeyEvent {
-                    receivedKeyEvent = it
+                    receivedInternalKeyEvent = it
                     true
                 }
             )
@@ -65,19 +65,19 @@ class ProcessKeyInputTest {
         rule.onRoot().performKeyPress(keyEvent(KeyCodeA, KeyDown))
 
         // Assert.
-        rule.runOnIdle { assertThat(receivedKeyEvent).isNull() }
+        rule.runOnIdle { assertThat(receivedInternalKeyEvent).isNull() }
     }
 
     @Test
     fun focusTargetNotFocused_doesNotTriggerOnKeyEvent() {
         // Arrange.
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 Modifier
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -87,21 +87,21 @@ class ProcessKeyInputTest {
         rule.onRoot().performKeyPress(keyEvent(KeyCodeA, KeyDown))
 
         // Assert.
-        rule.runOnIdle { assertThat(receivedKeyEvent).isNull() }
+        rule.runOnIdle { assertThat(receivedInternalKeyEvent).isNull() }
     }
 
     @Test
     fun onKeyEvent_triggered_onDownEvent() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -115,7 +115,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(A)
             assertThat(keyEvent.type).isEqualTo(KeyDown)
             assertThat(keyConsumed).isTrue()
@@ -126,14 +126,14 @@ class ProcessKeyInputTest {
     fun onKeyEvent_triggered_onUpAfterDownEvent() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -148,7 +148,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(A)
             assertThat(keyEvent.type).isEqualTo(KeyUp)
             assertThat(keyConsumed).isTrue()
@@ -159,14 +159,14 @@ class ProcessKeyInputTest {
     fun onPreviewKeyEvent_triggered_onDownEvent() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onPreviewKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -180,7 +180,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(A)
             assertThat(keyEvent.type).isEqualTo(KeyDown)
             assertThat(keyConsumed).isTrue()
@@ -191,14 +191,14 @@ class ProcessKeyInputTest {
     fun onPreviewKeyEvent_triggered_onUpAfterDownEvent() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onPreviewKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -213,7 +213,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(A)
             assertThat(keyEvent.type).isEqualTo(KeyUp)
             assertThat(keyConsumed).isTrue()
@@ -224,19 +224,19 @@ class ProcessKeyInputTest {
     fun onKeyEventNotTriggered_ifOnPreviewKeyEventConsumesEvent() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedPreviewKeyEvent: KeyEvent? = null
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedPreviewInternalKeyEvent: InternalKeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
                     .onPreviewKeyEvent {
-                        receivedPreviewKeyEvent = it
+                        receivedPreviewInternalKeyEvent = it
                         true
                     }
             )
@@ -250,9 +250,9 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedPreviewKeyEvent)
+            val keyEvent = checkNotNull(receivedPreviewInternalKeyEvent)
             assertThat(keyEvent.type).isEqualTo(KeyDown)
-            assertThat(receivedKeyEvent).isNull()
+            assertThat(receivedInternalKeyEvent).isNull()
         }
     }
 
@@ -296,11 +296,11 @@ class ProcessKeyInputTest {
     fun onKeyEvent_afterUpdate() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var keyEventFromOnKeyEvent1: KeyEvent? = null
-        var keyEventFromOnKeyEvent2: KeyEvent? = null
-        var onKeyEvent: (event: KeyEvent) -> Boolean by mutableStateOf(
+        var keyEventFromOnInternalKeyEvent1: InternalKeyEvent? = null
+        var keyEventFromOnInternalKeyEvent2: InternalKeyEvent? = null
+        var onKeyEvent: (event: InternalKeyEvent) -> Boolean by mutableStateOf(
             value = {
-                keyEventFromOnKeyEvent1 = it
+                keyEventFromOnInternalKeyEvent1 = it
                 true
             }
         )
@@ -317,7 +317,7 @@ class ProcessKeyInputTest {
         // Act.
         rule.runOnIdle {
             onKeyEvent = {
-                keyEventFromOnKeyEvent2 = it
+                keyEventFromOnInternalKeyEvent2 = it
                 true
             }
         }
@@ -325,8 +325,8 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            assertThat(keyEventFromOnKeyEvent1).isNull()
-            assertThat(keyEventFromOnKeyEvent2).isNotNull()
+            assertThat(keyEventFromOnInternalKeyEvent1).isNull()
+            assertThat(keyEventFromOnInternalKeyEvent2).isNotNull()
         }
     }
 
@@ -334,11 +334,11 @@ class ProcessKeyInputTest {
     fun onPreviewKeyEvent_afterUpdate() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var keyEventFromOnPreviewKeyEvent1: KeyEvent? = null
-        var keyEventFromOnPreviewKeyEvent2: KeyEvent? = null
-        var onPreviewKeyEvent: (event: KeyEvent) -> Boolean by mutableStateOf(
+        var keyEventFromOnPreviewInternalKeyEvent1: InternalKeyEvent? = null
+        var keyEventFromOnPreviewInternalKeyEvent2: InternalKeyEvent? = null
+        var onPreviewKeyEvent: (event: InternalKeyEvent) -> Boolean by mutableStateOf(
             value = {
-                keyEventFromOnPreviewKeyEvent1 = it
+                keyEventFromOnPreviewInternalKeyEvent1 = it
                 true
             }
         )
@@ -355,7 +355,7 @@ class ProcessKeyInputTest {
         // Act.
         rule.runOnIdle {
             onPreviewKeyEvent = {
-                keyEventFromOnPreviewKeyEvent2 = it
+                keyEventFromOnPreviewInternalKeyEvent2 = it
                 true
             }
         }
@@ -363,8 +363,8 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            assertThat(keyEventFromOnPreviewKeyEvent1).isNull()
-            assertThat(keyEventFromOnPreviewKeyEvent2).isNotNull()
+            assertThat(keyEventFromOnPreviewInternalKeyEvent1).isNull()
+            assertThat(keyEventFromOnPreviewInternalKeyEvent2).isNotNull()
         }
     }
 
@@ -587,14 +587,14 @@ class ProcessKeyInputTest {
     fun onPreviewKeyEvent_ignoresUpWithoutDown() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onPreviewKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -608,7 +608,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            assertThat(receivedKeyEvent).isNull()
+            assertThat(receivedInternalKeyEvent).isNull()
         }
     }
 
@@ -616,14 +616,14 @@ class ProcessKeyInputTest {
     fun onKeyEvent_ignoresUpWithoutDown() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -637,7 +637,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            assertThat(receivedKeyEvent).isNull()
+            assertThat(receivedInternalKeyEvent).isNull()
         }
     }
 
@@ -645,14 +645,14 @@ class ProcessKeyInputTest {
     fun onKeyEvent_alwaysGetsUnknownEventType() {
         // Arrange.
         val focusRequester = FocusRequester()
-        var receivedKeyEvent: KeyEvent? = null
+        var receivedInternalKeyEvent: InternalKeyEvent? = null
         rule.setFocusableContent {
             Box(
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .focusTarget()
                     .onKeyEvent {
-                        receivedKeyEvent = it
+                        receivedInternalKeyEvent = it
                         true
                     }
             )
@@ -660,7 +660,7 @@ class ProcessKeyInputTest {
         rule.runOnIdle {
             focusRequester.requestFocus()
         }
-        val event = KeyEvent(
+        val event = InternalKeyEvent(
             AndroidKeyEvent(0L, 0L, /*action=*/ Int.MAX_VALUE - 1, KeyCodeA, 0, 0)
         )
 
@@ -669,7 +669,7 @@ class ProcessKeyInputTest {
 
         // Assert.
         rule.runOnIdle {
-            val keyEvent = checkNotNull(receivedKeyEvent)
+            val keyEvent = checkNotNull(receivedInternalKeyEvent)
             assertThat(keyEvent.key).isEqualTo(A)
             assertThat(keyEvent.type).isEqualTo(Unknown)
             assertThat(keyConsumed).isTrue()
@@ -677,18 +677,18 @@ class ProcessKeyInputTest {
     }
 
     /**
-     * The [KeyEvent] is usually created by the system. This function creates an instance of
-     * [KeyEvent] that can be used in tests.
+     * The [InternalKeyEvent] is usually created by the system. This function creates an instance of
+     * [InternalKeyEvent] that can be used in tests.
      */
     private fun keyEvent(
         @Suppress("SameParameterValue") keycode: Int,
         keyEventType: KeyEventType
-    ): KeyEvent {
+    ): InternalKeyEvent {
         val action = when (keyEventType) {
             KeyDown -> ACTION_DOWN
             KeyUp -> ACTION_UP
             else -> error("Unknown key event type")
         }
-        return KeyEvent(AndroidKeyEvent(0L, 0L, action, keycode, 0, 0))
+        return InternalKeyEvent(AndroidKeyEvent(0L, 0L, action, keycode, 0, 0))
     }
 }

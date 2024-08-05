@@ -29,7 +29,7 @@ import androidx.compose.ui.focus.FocusDirection.Companion.Left
 import androidx.compose.ui.focus.FocusDirection.Companion.Right
 import androidx.compose.ui.focus.FocusDirection.Companion.Up
 import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.KeyEventType.Companion.KeyDown
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.nativeKeyCode
@@ -81,5 +81,5 @@ internal actual fun Modifier.interceptDPadAndMoveFocus(
         }
 }
 
-private fun KeyEvent.isKeyCode(keyCode: Int): Boolean =
+private fun InternalKeyEvent.isKeyCode(keyCode: Int): Boolean =
     this.key.nativeKeyCode == keyCode

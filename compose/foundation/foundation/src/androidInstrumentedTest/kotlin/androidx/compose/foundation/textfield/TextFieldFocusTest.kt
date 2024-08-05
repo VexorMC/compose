@@ -553,13 +553,13 @@ class TextFieldFocusTest {
             KeyEvent.ACTION_DOWN, keyCode, 0, 0, invalidDeviceId, 0
         )
         assertThat(keyEventDown.device).isNull()
-        rule.onRoot().performKeyPress(androidx.compose.ui.input.key.KeyEvent(keyEventDown))
+        rule.onRoot().performKeyPress(androidx.compose.ui.input.key.InternalKeyEvent(keyEventDown))
         rule.waitForIdle()
         val keyEventUp = KeyEvent(
             SystemClock.uptimeMillis(), SystemClock.uptimeMillis(),
             KeyEvent.ACTION_UP, keyCode, 0, 0, invalidDeviceId, 0
         )
-        rule.onRoot().performKeyPress(androidx.compose.ui.input.key.KeyEvent(keyEventUp))
+        rule.onRoot().performKeyPress(androidx.compose.ui.input.key.InternalKeyEvent(keyEventUp))
         rule.waitForIdle()
     }
 
@@ -705,9 +705,9 @@ class TextFieldFocusTest {
         )
 
         repeat(count) {
-            rule.onRoot().performKeyPress(androidx.compose.ui.input.key.KeyEvent(keyEventDown))
+            rule.onRoot().performKeyPress(androidx.compose.ui.input.key.InternalKeyEvent(keyEventDown))
             rule.waitForIdle()
-            rule.onRoot().performKeyPress(androidx.compose.ui.input.key.KeyEvent(keyEventUp))
+            rule.onRoot().performKeyPress(androidx.compose.ui.input.key.InternalKeyEvent(keyEventUp))
         }
         return true
     }

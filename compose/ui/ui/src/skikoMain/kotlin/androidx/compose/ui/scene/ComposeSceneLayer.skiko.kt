@@ -26,7 +26,7 @@ import androidx.compose.runtime.rememberCompositionContext
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.InternalComposeUiApi
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.node.LayoutNode
@@ -124,7 +124,7 @@ interface ComposeSceneLayer {
      * Sets the root key event listener.
      *
      * @param onPreviewKeyEvent This callback is invoked when the user interacts with the hardware
-     * keyboard. It gives ancestors of a focused component the chance to intercept a [KeyEvent].
+     * keyboard. It gives ancestors of a focused component the chance to intercept a [InternalKeyEvent].
      * Return true to stop propagation of this event. If you return false, the key event will be sent
      * to this [onPreviewKeyEvent]'s child. If none of the children consume the event, it will be
      * sent back up to the root using the [onKeyEvent] callback.
@@ -132,8 +132,8 @@ interface ComposeSceneLayer {
      * While implementing this callback, return true to stop propagation of this event.
      */
     fun setKeyEventListener(
-        onPreviewKeyEvent: ((KeyEvent) -> Boolean)? = null,
-        onKeyEvent: ((KeyEvent) -> Boolean)? = null,
+        onPreviewKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
+        onKeyEvent: ((InternalKeyEvent) -> Boolean)? = null,
     )
 
     /**

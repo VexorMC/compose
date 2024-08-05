@@ -29,8 +29,8 @@ import java.awt.event.KeyEvent.KEY_RELEASED
 private val java.awt.event.KeyEvent.keyLocationForCompose get() =
     if (keyLocation == KEY_LOCATION_UNKNOWN) KEY_LOCATION_STANDARD else keyLocation
 
-internal fun java.awt.event.KeyEvent.toComposeEvent() = KeyEvent(
-    nativeKeyEvent = InternalKeyEvent(
+internal fun java.awt.event.KeyEvent.toComposeEvent() = InternalKeyEvent(
+    nativeKeyEvent = NativeKeyEvent(
         key = Key(
             nativeKeyCode = keyCode,
             nativeKeyLocation = keyLocationForCompose

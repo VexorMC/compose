@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.asComposeCanvas
-import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.InternalKeyEvent
 import androidx.compose.ui.input.key.toComposeEvent
 import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerEventType
@@ -230,7 +230,7 @@ private class ComposeWindow(
         isDisposed = true
     }
 
-    private fun onKeyboardEvent(event: KeyEvent): Boolean {
+    private fun onKeyboardEvent(event: InternalKeyEvent): Boolean {
         if (isDisposed) return false
         return scene.sendKeyEvent(event)
     }

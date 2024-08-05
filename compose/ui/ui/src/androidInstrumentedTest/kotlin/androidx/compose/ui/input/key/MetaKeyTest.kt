@@ -129,7 +129,7 @@ class MetaKeyTest {
         assertThat(keyEvent.isShiftPressed).isTrue()
     }
 
-    private fun testKeyEvent(androidMetaKeys: Int = 0): KeyEvent {
-        return KeyEvent(AndroidKeyEvent(0L, 0L, KeyDown, KeyCodeA, 0, androidMetaKeys))
+    private fun testKeyEvent(androidMetaKeys: Int = 0): InternalKeyEvent {
+        return InternalKeyEvent(AndroidKeyEvent(0L, 0L, KeyDown, KeyCodeA, 0, androidMetaKeys))
     }
 }

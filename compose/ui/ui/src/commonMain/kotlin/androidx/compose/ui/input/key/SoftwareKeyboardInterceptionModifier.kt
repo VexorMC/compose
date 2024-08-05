@@ -36,7 +36,7 @@ import androidx.compose.ui.platform.InspectorInfo
  */
 @ExperimentalComposeUiApi
 fun Modifier.onInterceptKeyBeforeSoftKeyboard(
-    onInterceptKeyBeforeSoftKeyboard: (KeyEvent) -> Boolean
+    onInterceptKeyBeforeSoftKeyboard: (InternalKeyEvent) -> Boolean
 ): Modifier = this then SoftKeyboardInterceptionElement(
     onKeyEvent = onInterceptKeyBeforeSoftKeyboard,
     onPreKeyEvent = null
@@ -52,7 +52,7 @@ fun Modifier.onInterceptKeyBeforeSoftKeyboard(
  *
  * @param onPreInterceptKeyBeforeSoftKeyboard This callback is invoked when the user interacts
  * with the hardware keyboard. It gives ancestors of a focused component the chance to intercept a
- * [KeyEvent]. Return true to stop propagation of this event. If you return false, the key event
+ * [InternalKeyEvent]. Return true to stop propagation of this event. If you return false, the key event
  * will be sent to this [SoftKeyboardInterceptionModifierNode]'s child. If none of the children
  * consume the event, it will be sent back up to the root [KeyInputModifierNode] using the
  * onKeyEvent callback, and ultimately to the software keyboard.
@@ -61,15 +61,15 @@ fun Modifier.onInterceptKeyBeforeSoftKeyboard(
  */
 @ExperimentalComposeUiApi
 fun Modifier.onPreInterceptKeyBeforeSoftKeyboard(
-    onPreInterceptKeyBeforeSoftKeyboard: (KeyEvent) -> Boolean,
+    onPreInterceptKeyBeforeSoftKeyboard: (InternalKeyEvent) -> Boolean,
 ): Modifier = this then SoftKeyboardInterceptionElement(
     onKeyEvent = null,
     onPreKeyEvent = onPreInterceptKeyBeforeSoftKeyboard
 )
 
 private data class SoftKeyboardInterceptionElement(
-    val onKeyEvent: ((KeyEvent) -> Boolean)?,
-    val onPreKeyEvent: ((KeyEvent) -> Boolean)?
+    val onKeyEvent: ((InternalKeyEvent) -> Boolean)?,
+    val onPreKeyEvent: ((InternalKeyEvent) -> Boolean)?
 ) : ModifierNodeElement<InterceptedKeyInputNode>() {
     override fun create() = InterceptedKeyInputNode(
         onEvent = onKeyEvent,
@@ -95,11 +95,11 @@ private data class SoftKeyboardInterceptionElement(
 
 @OptIn(ExperimentalComposeUiApi::class)
 private class InterceptedKeyInputNode(
-    var onEvent: ((KeyEvent) -> Boolean)?,
-    var onPreEvent: ((KeyEvent) -> Boolean)?
+    var onEvent: ((InternalKeyEvent) -> Boolean)?,
+    var onPreEvent: ((InternalKeyEvent) -> Boolean)?
 ) : SoftKeyboardInterceptionModifierNode, Modifier.Node() {
-    override fun onInterceptKeyBeforeSoftKeyboard(event: KeyEvent): Boolean =
+    override fun onInterceptKeyBeforeSoftKeyboard(event: InternalKeyEvent): Boolean =
         onEvent?.invoke(event) ?: false
-    override fun onPreInterceptKeyBeforeSoftKeyboard(event: KeyEvent): Boolean =
+    override fun onPreInterceptKeyBeforeSoftKeyboard(event: InternalKeyEvent): Boolean =
         onPreEvent?.invoke(event) ?: false
 }
