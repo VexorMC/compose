@@ -144,6 +144,20 @@ afterEvaluate {
             jvmOs(it, "windows-x64", libs.skikoWindowsX64.get())
             jvmOs(it, "windows-arm64", libs.skikoWindowsArm64.get())
         }
+
+        repositories {
+            maven {
+                name "VexorRepository"
+                url "https://maven.vexor.dev/releases"
+                credentials {
+                    username = properties['username']
+                    password = properties['token']
+                }
+                authentication {
+                    basic(BasicAuthentication)
+                }
+            }
+        }
     }
 }
 

@@ -106,3 +106,21 @@ androidx {
     description = "Android Lifecycle Saved State"
     metalavaK2UastEnabled = true
 }
+
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name "VexorRepository"
+                url "https://maven.vexor.dev/releases"
+                credentials {
+                    username = properties['username']
+                    password = properties['token']
+                }
+                authentication {
+                    basic(BasicAuthentication)
+                }
+            }
+        }
+    }
+}

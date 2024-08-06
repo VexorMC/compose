@@ -1,0 +1,1 @@
+./gradlew :mpp:publishComposeJbToMavenLocal -Pcompose.platforms=jvm -Pjetbrains.publication.version.COMPOSE=%1 -Pjetbrains.publication.version.LIFECYCLE=%1 -Pjetbrains.publication.version.CORE_BUNDLE=%1 -Pjetbrains.publication.version.NAVIGATION=%1 -Pjetbrains.publication.version.SAVEDSTATE=%1

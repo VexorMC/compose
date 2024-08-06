@@ -126,7 +126,7 @@ val libraryToTasks = mapOf(
 )
 
 tasks.register("publishComposeJb", ComposePublishingTask::class) {
-    repository = "MavenRepository"
+    repository = "VexorRepository"
 
     libraries.forEach {
         libraryToComponents[it]?.forEach(::publishMultiplatform)

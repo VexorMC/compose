@@ -121,6 +121,24 @@ androidx {
     legacyDisableKotlinStrictApiMode = true
 }
 
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name "VexorRepository"
+                url "https://maven.vexor.dev/releases"
+                credentials {
+                    username = properties['username']
+                    password = properties['token']
+                }
+                authentication {
+                    basic(BasicAuthentication)
+                }
+            }
+        }
+    }
+}
+
 android {
     sourceSets.androidTest.assets.srcDirs +=
             project.rootDir.absolutePath + "/../../golden/navigation/navigation-compose"
